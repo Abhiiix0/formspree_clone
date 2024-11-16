@@ -3,10 +3,11 @@ import dotenv from "dotenv";
 import connectDb from "./config/connectDb.js";
 import router from "./routes/index.js";
 import cookieParser from "cookie-parser";
-
+import bodyParser from "body-parser";
 dotenv.config();
 
 const app = express();
+// app.use(bodyParser.urlencoded({ extended: true })); // Parses form data
 app.use(express.json());
 app.use(cookieParser());
 const port = 8080;
