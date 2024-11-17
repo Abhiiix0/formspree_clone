@@ -1,100 +1,129 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import {
+  EyeInvisibleOutlined,
+  EyeTwoTone,
+  UserOutlined,
   MailOutlined,
   LockOutlined,
-  UserOutlined,
-  EyeOutlined,
-  EyeInvisibleOutlined,
 } from "@ant-design/icons";
+import { Link, useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
+import { useAppContext } from "../context/AppContext";
 
 const Register = () => {
+  const navigate = useNavigate();
+  const { user, setUser } = useAppContext();
   const {
     register,
     handleSubmit,
-    formState: { errors },
     watch,
+    reset,
+    formState: { errors },
   } = useForm();
 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-  async function onSubmit(data) {
-    console.log(data);
-    const datas = await fetch("/reister", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    alert("Registration Successful!");
-  }
+  const onSubmit = async (data) => {
+    const { name, email, password } = data;
 
-  // Watch password for confirm password validation
-  const password = watch("password");
+    try {
+      const response = await fetch("http://localhost:8080/api/registration", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ name, email, password }),
+      });
 
-  // Toggle visibility of password
-  const togglePasswordVisibility = () => setShowPassword(!showPassword);
+      const result = await response.json();
+      if (response.ok) {
+        // alert("Registration successful");
+        toast.success("Verification OTP sent to your email");
+        // console.log(result);
+        navigate("/signup/OtpVerification");
+        setUser({
+          name: name,
+          email: email,
+        });
+        reset();
+      } else {
+        toast.error(result?.message || "Something went wrong");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert("An error occurred. Please try again.");
+    }
+  };
+
+  const togglePasswordVisibility = () => setShowPassword((prev) => !prev);
   const toggleConfirmPasswordVisibility = () =>
-    setShowConfirmPassword(!showConfirmPassword);
+    setShowConfirmPassword((prev) => !prev);
 
   return (
-    <div className="flex flex-col md:flex-row items-center justify-center min-h-screen bg-gray-100 p-4">
-      {/* Left: Registration Form */}
+    <div className="flex justify-center items-center min-h-screen bg-gray-100 p-4">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="w-full max-w-sm bg-white p-6 rounded-lg shadow-lg"
+      >
+        <h2 className="text-2xl font-bold mb-6 text-center">Register</h2>
 
-      <div className="w-full md:w-1/2 border-t border-b border-l lg:w-1/3 p-6 bg-white min-h-[435px] rounded-l-lg ">
-        <h2 className="text-3xl font-bold text-center mb-6">
-          Create an Account
-        </h2>
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className=" flex flex-col justify-between  min-h-[320px]"
-        >
-          {/* Full Name */}
+        {/* Name Field */}
+        <div className="mb-2">
+          <label className="block mb-1 font-semibold">Name</label>
           <div className="relative">
-            <UserOutlined className="absolute top-3 left-3 text-gray-400" />
+            <UserOutlined className="absolute top-3 left-3 text-gray-500" />
             <input
               type="text"
-              {...register("fullName", { required: "Full Name is required" })}
-              className={`w-full pl-10 px-3 py-2 border rounded-md ${
-                errors.fullName ? "border-red-500" : "border-gray-300"
+              placeholder="Enter your name"
+              className={`w-full pl-10 p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                errors.name ? "border-red-500" : ""
               }`}
-              placeholder="Full Name"
+              {...register("name", { required: "Name is required" })}
             />
-            {errors.fullName && (
-              <p className="m-0 text-sm text-red-500">
-                {errors.fullName.message}
-              </p>
-            )}
           </div>
+          {errors.name && (
+            <p className="text-red-500 text-[10px]">{errors.name.message}</p>
+          )}
+        </div>
 
-          {/* Email */}
+        {/* Email Field */}
+        <div className="mb-2">
+          <label className="block mb-1 font-semibold">Email</label>
           <div className="relative">
-            <MailOutlined className="absolute top-3 left-3 text-gray-400" />
+            <MailOutlined className="absolute top-3 left-3 text-gray-500" />
             <input
               type="email"
+              placeholder="Enter your email"
+              className={`w-full pl-10 p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                errors.email ? "border-red-500" : ""
+              }`}
               {...register("email", {
                 required: "Email is required",
                 pattern: {
-                  value: /^\S+@\S+$/i,
+                  value: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/,
                   message: "Invalid email address",
                 },
               })}
-              className={`w-full pl-10 px-3 py-2 border rounded-md ${
-                errors.email ? "border-red-500" : "border-gray-300"
-              }`}
-              placeholder="Email Address"
             />
-            {errors.email && (
-              <p className="m-0 text-sm text-red-500">{errors.email.message}</p>
-            )}
           </div>
+          {errors.email && (
+            <p className="text-red-500 text-[10px]">{errors.email.message}</p>
+          )}
+        </div>
 
-          {/* Password */}
+        {/* Password Field */}
+        <div className="mb-2">
+          <label className="block mb-1 font-semibold">Password</label>
           <div className="relative">
-            <LockOutlined className="absolute top-3 left-3 text-gray-400" />
+            <LockOutlined className="absolute top-3 left-3 text-gray-500" />
             <input
               type={showPassword ? "text" : "password"}
+              placeholder="Enter your password"
+              className={`w-full pl-10 p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                errors.password ? "border-red-500" : ""
+              }`}
               {...register("password", {
                 required: "Password is required",
                 minLength: {
@@ -102,105 +131,70 @@ const Register = () => {
                   message: "Password must be at least 6 characters",
                 },
               })}
-              className={`w-full pl-10 px-3 py-2 border rounded-md ${
-                errors.password ? "border-red-500" : "border-gray-300"
-              }`}
-              placeholder="Password"
             />
-            <span
-              className="absolute top-3 right-3 cursor-pointer"
+            <button
+              type="button"
+              className="absolute top-3 right-3 text-gray-500"
               onClick={togglePasswordVisibility}
             >
-              {!showPassword ? (
-                <EyeInvisibleOutlined className="text-gray-400" />
-              ) : (
-                <EyeOutlined className="text-gray-400" />
-              )}
-            </span>
-            {errors.password && (
-              <p className="m-0 text-sm text-red-500">
-                {errors.password.message}
-              </p>
-            )}
+              {showPassword ? <EyeTwoTone /> : <EyeInvisibleOutlined />}
+            </button>
           </div>
+          {errors.password && (
+            <p className="text-red-500 text-[10px]">
+              {errors.password.message}
+            </p>
+          )}
+        </div>
 
-          {/* Confirm Password */}
+        {/* Confirm Password Field */}
+        <div className="mb-4">
+          <label className="block mb-1 font-semibold">Confirm Password</label>
           <div className="relative">
-            <LockOutlined className="absolute top-3 left-3 text-gray-400" />
+            <LockOutlined className="absolute top-3 left-3 text-gray-500" />
             <input
               type={showConfirmPassword ? "text" : "password"}
+              placeholder="Confirm your password"
+              className={`w-full pl-10 p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                errors.confirmPassword ? "border-red-500" : ""
+              }`}
               {...register("confirmPassword", {
                 required: "Please confirm your password",
                 validate: (value) =>
-                  value === password || "Passwords do not match",
+                  value === watch("password") || "Passwords do not match",
               })}
-              className={`w-full pl-10 px-3 py-2 border rounded-md ${
-                errors.confirmPassword ? "border-red-500" : "border-gray-300"
-              }`}
-              placeholder="Confirm Password"
             />
-            <span
-              className="absolute top-3 right-3 cursor-pointer"
+            <button
+              type="button"
+              className="absolute top-3 right-3 text-gray-500"
               onClick={toggleConfirmPasswordVisibility}
             >
-              {!showConfirmPassword ? (
-                <EyeInvisibleOutlined className="text-gray-400" />
-              ) : (
-                <EyeOutlined className="text-gray-400" />
-              )}
-            </span>
-            {errors.confirmPassword && (
-              <p className="m-0 text-sm text-red-500">
-                {errors.confirmPassword.message}
-              </p>
-            )}
+              {showConfirmPassword ? <EyeTwoTone /> : <EyeInvisibleOutlined />}
+            </button>
           </div>
-
-          {/* Submit Button */}
-          <button
-            type="submit"
-            className="w-full py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700 transition"
-          >
-            Register
-          </button>
-        </form>
-      </div>
-
-      {/* Right: Background Image with Overlay and Advantages */}
-      <div className="w-full hidden md:block md:w-1/2 lg:w-1/3 relative h-full min-h-[435px] rounded-r-lg overflow-hidden">
-        <img
-          src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-          alt="Background"
-          className="absolute inset-0 object-cover w-full h-full"
-        />
-        <div className="absolute inset-0 bg-black opacity-60"></div>
-        <div className="relative p-8 text-white flex flex-col items-center justify-center h-full">
-          <h2 className="text-2xl font-bold mb-4">Why Choose Us?</h2>
-          <ul className="space-y-4">
-            <li className="flex items-start">
-              <span className="text-green-400 text-xl mr-3">✔️</span>
-              <p className="text-white">
-                <strong>Effortless Form Management</strong> - Easily create and
-                manage forms without any backend setup.
-              </p>
-            </li>
-            <li className="flex items-start">
-              <span className="text-green-400 text-xl mr-3">✔️</span>
-              <p className="text-white">
-                <strong>Real-Time Notifications</strong> - Get notified
-                instantly when someone submits a form on your website.
-              </p>
-            </li>
-            <li className="flex items-start">
-              <span className="text-green-400 text-xl mr-3">✔️</span>
-              <p className="text-white">
-                <strong>Seamless Integrations</strong> - Connect your forms with
-                popular tools like Zapier and Slack.
-              </p>
-            </li>
-          </ul>
+          {errors.confirmPassword && (
+            <p className="text-red-500 text-[10px]">
+              {errors.confirmPassword.message}
+            </p>
+          )}
         </div>
-      </div>
+
+        {/* Submit Button */}
+        <button
+          type="submit"
+          className="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600 transition-colors"
+        >
+          Register
+        </button>
+
+        {/* Login Link */}
+        <p className="mt-4 text-center text-sm">
+          Already have an account?{" "}
+          <Link to="/login" className="text-blue-500 hover:underline">
+            Login
+          </Link>
+        </p>
+      </form>
     </div>
   );
 };

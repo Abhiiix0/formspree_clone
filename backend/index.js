@@ -4,9 +4,16 @@ import connectDb from "./config/connectDb.js";
 import router from "./routes/index.js";
 import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
+import cors from "cors";
 dotenv.config();
 
 const app = express();
+app.use(
+  cors({
+    origin: process.env.FRONTEND_URL,
+    credentials: true,
+  })
+);
 // app.use(bodyParser.urlencoded({ extended: true })); // Parses form data
 app.use(express.json());
 app.use(cookieParser());
