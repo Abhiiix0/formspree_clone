@@ -6,6 +6,8 @@ import Register from "./pages/Register";
 import OtpVerification from "./pages/OtpVerification";
 import Toaster from "react-hot-toast";
 import PrivateRoute from "./components/PrivateRoute";
+import Intigration from "./components/Intigration";
+import Settings from "./components/Settings";
 // Lazy load the components
 const Home = lazy(() => import("./pages/Home"));
 
@@ -22,9 +24,13 @@ const App = () => {
                 <Dashboard />
               </PrivateRoute>
             }
-          />
+          >
+            <Route path="/dashboard/intigration" element={<Intigration />} />
+            <Route path="/dashboard/setting" element={<Settings />} />
+          </Route>
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Register />} />
+
           <Route path="/signup/OtpVerification" element={<OtpVerification />} />
         </Routes>
       </Suspense>
