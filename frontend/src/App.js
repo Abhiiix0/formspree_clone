@@ -8,6 +8,7 @@ import Toaster from "react-hot-toast";
 import PrivateRoute from "./components/PrivateRoute";
 import Intigration from "./components/Intigration";
 import Settings from "./components/Settings";
+import Submissions from "./components/Submissions";
 // Lazy load the components
 const Home = lazy(() => import("./pages/Home"));
 
@@ -25,6 +26,7 @@ const App = () => {
               </PrivateRoute>
             }
           >
+            <Route path="/dashboard/submissions" element={<Submissions />} />
             <Route path="/dashboard/intigration" element={<Intigration />} />
             <Route path="/dashboard/setting" element={<Settings />} />
           </Route>

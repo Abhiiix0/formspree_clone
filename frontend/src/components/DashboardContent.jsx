@@ -21,8 +21,8 @@ const DashboardContent = () => {
   const [selectedForm, setselectedForm] = useState();
   const [selectedOption, setselectedOption] = useState();
   return (
-    <div className=" w-full h-[90vh] flex">
-      <div className=" w-[20%] border-r h-full bg-white p-4">
+    <div className=" w-full  h-full flex">
+      <div className=" w-[20%] border-r h- bg-white p-4">
         <button className=" h-12 hover:bg-slate-100 w-full rounded-md border">
           <PlusOutlined className=" mr-2" />
           Add New
@@ -62,7 +62,10 @@ const DashboardContent = () => {
               Intigration
             </p>
             <p
-              onClick={() => setselectedOption("Submissions")}
+              onClick={() => {
+                setselectedOption("Submissions");
+                navigate("/dashboard/submissions");
+              }}
               className={`${
                 selectedOption === "Submissions" && "border-b-2 text-black"
               } hover:border-b-2  pb-2 text-gray-500 cursor-pointer border-red-500 px-1`}
@@ -82,7 +85,7 @@ const DashboardContent = () => {
             </p>
           </div>
         </div>
-        <div className="">
+        <div className="p-3">
           <Outlet />
         </div>
       </div>
