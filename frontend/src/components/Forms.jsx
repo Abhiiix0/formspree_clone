@@ -1,7 +1,7 @@
 import { PlusOutlined } from "@ant-design/icons";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { getAllForm } from "../Service/Api";
+import { CreateForm, getAllForm } from "../Service/Api";
 import { Modal } from "antd";
 import { useForm } from "react-hook-form";
 
@@ -42,8 +42,20 @@ const Forms = () => {
     }
   };
 
-  const submitData = (data) => {
-    console.log(data);
+  const submitData = async (data) => {
+    const payload = {
+      ...data,
+      userId: "6739c4ac65eae806b221ffce",
+    };
+    console.log(payload);
+    const res = await CreateForm(payload);
+    const result = await res.json();
+    if (result?.success) {
+      toast.success("Form created successfully");
+      fetchForms();
+      setaddNewModal(false);
+    }
+    console.log(result);
   };
   useEffect(() => {
     fetchForms();

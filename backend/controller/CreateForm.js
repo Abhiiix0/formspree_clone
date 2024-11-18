@@ -9,7 +9,9 @@ export async function CreateForm(req, res) {
   try {
     const newForm = new FormModel({ userId, formName, email, formId });
     await newForm.save();
-    res.status(201).json({ formId, message: "Form created successfully" });
+    res
+      .status(201)
+      .json({ formId, message: "Form created successfully", success: true });
   } catch (error) {
     res
       .status(500)
