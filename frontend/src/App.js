@@ -9,6 +9,7 @@ import PrivateRoute from "./components/PrivateRoute";
 import Intigration from "./components/Intigration";
 import Settings from "./components/Settings";
 import Submissions from "./components/Submissions";
+import FromNotSelect from "./components/FromNotSelect";
 // Lazy load the components
 const Home = lazy(() => import("./pages/Home"));
 
@@ -26,9 +27,16 @@ const App = () => {
               </PrivateRoute>
             }
           >
-            <Route path="/dashboard/submissions" element={<Submissions />} />
-            <Route path="/dashboard/intigration" element={<Intigration />} />
-            <Route path="/dashboard/setting" element={<Settings />} />
+            <Route
+              path="/dashboard/form/submissions"
+              element={<Submissions />}
+            />
+            <Route
+              path="/dashboard/form/intigration"
+              element={<Intigration />}
+            />
+            <Route path="/dashboard/form" element={<FromNotSelect />} />
+            <Route path="/dashboard/form/setting" element={<Settings />} />
           </Route>
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Register />} />

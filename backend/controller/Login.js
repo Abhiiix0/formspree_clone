@@ -34,14 +34,14 @@ export async function Login(req, res) {
       http: true,
       secure: true,
       sameSite: "None",
-      // expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // Expires in 7 days
+      expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // Expires in 7 days
     };
-    res.cookie("token", token, cookieOption).status(200).json({
+    return res.cookie("token", token, cookieOption).status(200).json({
       message: "Login Successfully",
       token: token,
     });
   } catch (error) {
-    res.status(400).json({
+    return res.status(400).json({
       message: error?.message || "something went wrong",
     });
   }
