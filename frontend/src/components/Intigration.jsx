@@ -1,15 +1,79 @@
-import React from "react";
+import React, { useState } from "react";
 import toast from "react-hot-toast";
-
-// import "react-toastify/dist/ReactToastify.css";
-
-const Intigration = () => {
-  const endpointUrl = `${process.env.BACKEND_URL}/api/form/3796869e-be1f-4860-adba-7db5f4bd26b8`;
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
+const Integration = () => {
+  const [selectedLanguage, setSelectedLanguage] = useState("HTML");
 
   const handleCopy = () => {
     navigator.clipboard.writeText(endpointUrl).then(() => {
       toast.success("Copied to clipboard!");
     });
+  };
+
+  const endpointUrl = `${process.env.BACKEND_URL}/api/form/3796869e-be1f-4860-adba-7db5f4bd26b8`;
+
+  const htmlCode = `
+<!-- Place this form HTML wherever you want your form -->
+<form
+  action="${endpointUrl}"
+  method="POST"
+>
+  <label>
+    Your email:
+    <input type="email" name="email">
+  </label>
+  <label>
+    Your message:
+    <textarea name="message"></textarea>
+  </label>
+  <button type="submit">Send</button>
+</form>
+  `;
+
+  const reactCode = `
+import React, { useState } from "react";
+
+const MyForm = () => {
+  const [formData, setFormData] = useState({ email: "", message: "" });
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    fetch("${endpointUrl}", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formData),
+    })
+      .then((response) => response.json())
+      .then((data) => console.log(data))
+      .catch((error) => console.error(error));
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <label>
+        Your email:
+        <input type="email" name="email" value={formData.email} onChange={handleChange} />
+      </label>
+      <label>
+        Your message:
+        <textarea name="message" value={formData.message} onChange={handleChange}></textarea>
+      </label>
+      <button type="submit">Send</button>
+    </form>
+  );
+};
+
+export default MyForm;
+  `;
+
+  const getCodeBlock = () => {
+    return selectedLanguage === "HTML" ? htmlCode : reactCode;
   };
 
   return (
@@ -39,12 +103,44 @@ const Intigration = () => {
         </div>
       </div>
       <div className="shadow bg-white rounded-md">
-        <div>
+        <div className=" mb-2">
           <p className="uppercase border-b py-3 px-3 text-sm font-medium">
-            Code examples
+            Code Examples
           </p>
-          <div className="p-3">
-            <div className="bg-black rounded-md h-[400px]"></div>
+          <div className="flex gap-3  px-2 pt-2">
+            <button
+              className={`px-4 py-1 rounded-md ${
+                selectedLanguage === "HTML"
+                  ? "bg-blue-500 text-white"
+                  : "bg-gray-200 text-black"
+              }`}
+              onClick={() => setSelectedLanguage("HTML")}
+            >
+              HTML
+            </button>
+            <button
+              className={`px-4 py-1 rounded-md ${
+                selectedLanguage === "React"
+                  ? "bg-blue-500 text-white"
+                  : "bg-gray-200 text-black"
+              }`}
+              onClick={() => setSelectedLanguage("React")}
+            >
+              React
+            </button>
+          </div>
+          <div className=" m-2 pb-1">
+            <SyntaxHighlighter
+              language="javascript"
+              style={vscDarkPlus}
+              customStyle={{
+                borderRadius: "8px",
+                fontSize: "0.875rem",
+                background: "#1e1e1e",
+              }}
+            >
+              {getCodeBlock()}
+            </SyntaxHighlighter>
           </div>
         </div>
       </div>
@@ -52,4 +148,4 @@ const Intigration = () => {
   );
 };
 
-export default Intigration;
+export default Integration;
