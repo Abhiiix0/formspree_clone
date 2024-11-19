@@ -33,8 +33,8 @@ const DashbaordHeader = () => {
           </Link>
           <p className="text-lg cursor-pointer">Forms</p>
           <p className="text-lg cursor-pointer">Account</p>
-          <p onClick={() => logout()} className=" text-lg cursor-pointer">
-            <LogoutOutlined />
+          <p onClick={() => logout()} className=" text-xl cursor-pointer">
+            <LogoutOutlined className=" text-red-500 " />
           </p>
         </div>
         <MenuOutlined
