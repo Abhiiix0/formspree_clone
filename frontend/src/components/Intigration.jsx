@@ -10,8 +10,8 @@ const Intigration = () => {
           </p>
           <div className=" p-3">
             <div className=" flex gap-2 ">
-              <p className=" flex rounded-md items-center px-3 bg-slate-100 h-11 w-full">
-                This is endpoint
+              <p className=" flex rounded-md items-center px-3 bg-slate-100 py-2 w-full">
+                http://localhost:8080/api/form/3796869e-be1f-4860-adba-7db5f4bd26b8
               </p>
               <button className=" h-11 border rounded-md px-3">Copy</button>
             </div>
