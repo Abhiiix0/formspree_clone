@@ -1,41 +1,49 @@
 import { PlusOutlined } from "@ant-design/icons";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { CreateForm, getAllForm } from "../Service/Api";
 import { Modal } from "antd";
 import { useForm } from "react-hook-form";
+import { useAppContext } from "../context/AppContext";
+import encryptMessage from "../Helper/Encryption";
+import { useNavigate } from "react-router-dom";
+// import AppContext from "antd/es/app/context";
 
 const Forms = () => {
+  const navigate = useNavigate();
+  const { selectedForm, setSelectedForm } = useAppContext();
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
   } = useForm();
-  const forms = [
-    {
-      id: 1,
-      name: "Form 1",
-    },
-    {
-      id: 2,
-      name: "Form 2",
-    },
-    {
-      id: 3,
-      name: "Form 2",
-    },
-  ];
-  const [selectedForm, setselectedForm] = useState();
+  //   const forms = [
+  //     {
+  //       id: 1,
+  //       name: "Form 1",
+  //     },
+  //     {
+  //       id: 2,
+  //       name: "Form 2",
+  //     },
+  //     {
+  //       id: 3,
+  //       name: "Form 2",
+  //     },
+  //   ];
+  const [forms, setforms] = useState([]);
+  //   const [selectedForm, setselectedForm] = useState();
   const fetchForms = async () => {
-    console.log(process.env.BACKEND_URL);
-    // fetch data from server
     try {
       const res = await getAllForm();
-      console.log(res.data);
+      // console.log(res.data);
       const result = await res.json();
-      // setForms(result.data)
-      console.log(result);
+      if (result?.data.length !== 0) {
+        // setSelectedForm(result?.data[0]);
+        // navigate(`/dashboard/form/${result?.data[0]?._id}`);
+      }
+      setforms([...result?.data]);
     } catch (error) {
       console.log(error);
       toast.error("Something went wrong");
@@ -47,8 +55,10 @@ const Forms = () => {
       ...data,
       userId: "6739c4ac65eae806b221ffce",
     };
-    console.log(payload);
-    const res = await CreateForm(payload);
+    const encPayload = { encData: encryptMessage(payload) };
+
+    console.log(payload, encPayload);
+    const res = await CreateForm(encPayload);
     const result = await res.json();
     if (result?.success) {
       toast.success("Form created successfully");
@@ -57,9 +67,14 @@ const Forms = () => {
     }
     console.log(result);
   };
+
+  const SelectForm = (form) => {
+    navigate(`/dashboard/form/${form?._id}`);
+    setSelectedForm(form); // set in global
+  };
   useEffect(() => {
     fetchForms();
-  }, []);
+  }, [selectedForm]);
   const [addNewModal, setaddNewModal] = useState(false);
   return (
     <div>
@@ -123,6 +138,9 @@ const Forms = () => {
           </div>
         </form>
       </Modal>
+      <div className="md:hidden bg-slate-100 rounded-md mb-3 h-[300px]">
+        Charts
+      </div>
       <button
         onClick={() => setaddNewModal(true)}
         className=" h-12 hover:bg-slate-100 w-full rounded-md border"
@@ -135,17 +153,20 @@ const Forms = () => {
         <div className=" flex flex-col gap-2">
           {forms.map((form) => (
             <p
-              key={form.id}
+              key={form.formId}
               onClick={() => {
-                setselectedForm(form.id);
+                SelectForm(form);
               }}
               className={` ${
-                selectedForm === form.id && "bg-slate-100"
+                selectedForm?.formId === form.formId && "bg-slate-100"
               } font-medium cursor-pointer p-1 m-0 border hover:bg-slate-100 rounded-md`}
             >
-              {form?.name}
+              {form?.formName}
             </p>
           ))}
+          {forms?.length === 0 && (
+            <div className=" text-gray-400">No forms available</div>
+          )}
         </div>
       </div>
     </div>

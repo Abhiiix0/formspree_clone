@@ -2,7 +2,7 @@ import FormModel from "../model/FormModel.js";
 import { v4 as uuidv4 } from "uuid";
 
 export async function CreateForm(req, res) {
-  // console.log(req.body);
+  console.log(req.body);
   const { userId, formName, email } = req.body;
   const formId = uuidv4(); // Generate a unique formId
 

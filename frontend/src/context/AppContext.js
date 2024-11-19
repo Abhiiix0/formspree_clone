@@ -8,6 +8,7 @@ const AppContext = createContext();
 export const AppProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [forms, setforms] = useState([]);
+  const [selectedForm, setSelectedForm] = useState(null);
   return (
     <AppContext.Provider
       value={{
@@ -15,6 +16,8 @@ export const AppProvider = ({ children }) => {
         setUser,
         forms,
         setforms,
+        selectedForm,
+        setSelectedForm,
       }}
     >
       {children}

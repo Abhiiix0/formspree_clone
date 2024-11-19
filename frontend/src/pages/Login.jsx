@@ -10,6 +10,7 @@ import {
 } from "@ant-design/icons";
 import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import encryptMessage from "../Helper/Encryption";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -23,7 +24,11 @@ const Login = () => {
 
   const onSubmit = async (data) => {
     const { email, password } = data;
-
+    const payload = {
+      email,
+      password,
+    };
+    const encPayload = { encData: encryptMessage(payload) };
     // Dummy API call simulation
     try {
       // Replace with your API call
@@ -32,7 +37,7 @@ const Login = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify(encPayload),
         credentials: "include",
       });
       const result = await response.json();

@@ -13,7 +13,9 @@ export async function DeleteFrom(req, res) {
     if (!deleted) {
       return res.status(404).json({ message: "Form not found" });
     }
-    return res.status(200).json({ message: "Form deleted successfully" });
+    return res
+      .status(200)
+      .json({ message: "Form deleted successfully", success: true });
   } catch (error) {
     res
       .status(500)

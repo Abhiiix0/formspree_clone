@@ -10,6 +10,8 @@ import Intigration from "./components/Intigration";
 import Settings from "./components/Settings";
 import Submissions from "./components/Submissions";
 import FromNotSelect from "./components/FromNotSelect";
+import PageNotFound from "./pages/PageNotFound";
+import Account from "./pages/Account";
 // Lazy load the components
 const Home = lazy(() => import("./pages/Home"));
 
@@ -27,21 +29,15 @@ const App = () => {
               </PrivateRoute>
             }
           >
-            <Route
-              path="/dashboard/form/submissions"
-              element={<Submissions />}
-            />
-            <Route
-              path="/dashboard/form/intigration"
-              element={<Intigration />}
-            />
-            <Route path="/dashboard/form" element={<FromNotSelect />} />
-            <Route path="/dashboard/form/setting" element={<Settings />} />
+            <Route path="/dashboard/form/:id" element={<Intigration />} />
+            <Route path="/dashboard" element={<FromNotSelect />} />
           </Route>
+          <Route path="/account" element={<Account />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Register />} />
 
           <Route path="/signup/OtpVerification" element={<OtpVerification />} />
+          <Route path="/*" element={<PageNotFound />} />
         </Routes>
       </Suspense>
     </Router>

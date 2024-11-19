@@ -20,3 +20,14 @@ export const CreateForm = (payload) => {
     credentials: "include",
   });
 };
+
+export const DeleteForm = (payload) => {
+  return fetch(baseUrl + "/deleteform", {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(payload),
+    credentials: "include",
+  });
+};
