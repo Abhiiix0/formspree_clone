@@ -31,3 +31,13 @@ export const DeleteForm = (payload) => {
     credentials: "include",
   });
 };
+export const updateForm = (payload) => {
+  return fetch(baseUrl + "/updateform", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(payload),
+    credentials: "include",
+  });
+};

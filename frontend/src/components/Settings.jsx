@@ -4,17 +4,18 @@ import { DeleteOutlined } from "@ant-design/icons";
 import { useForm } from "react-hook-form";
 import { useAppContext } from "../context/AppContext";
 import toast from "react-hot-toast";
-import { DeleteForm } from "../Service/Api";
+import { DeleteForm, updateForm } from "../Service/Api";
 import { useNavigate } from "react-router-dom";
 
 const Settings = () => {
   const { selectedForm, setSelectedForm } = useAppContext();
   const navigate = useNavigate();
-  // Set up React Hook Form
+
   const {
     register,
     handleSubmit,
     setValue,
+    getValues,
     formState: { errors },
   } = useForm();
 
@@ -22,65 +23,115 @@ const Settings = () => {
   useEffect(() => {
     if (selectedForm) {
       setValue("formName", selectedForm.formName || "");
-      setValue("formEnable", selectedForm.formEnable || false);
-      setValue("emailNotifications", selectedForm.emailNotifications || false);
       setValue("email", selectedForm.email || "");
     }
   }, [selectedForm, setValue]);
 
-  // Handle form submission
-  const onSubmit = async (data) => {
-    // API call to save form data (use your API method)
+  // Handle saving the form name
+  const saveFormName = async () => {
+    const formName = getValues("formName");
     try {
-      console.log("Saving form data", data);
-      setSelectedForm({ ...data });
-      alert("Form data saved!");
+      const payload = { formId: selectedForm?.formId, formName };
+      const res = await updateForm(payload);
+      const result = await res.json();
+      if (result?.success) {
+        setSelectedForm((prev) => ({ ...prev, formName }));
+        toast.success("Form name saved!");
+      } else {
+        toast.error(res?.message || "Failed to save form name.");
+      }
     } catch (error) {
-      console.error("Error saving form data:", error);
+      console.error("Error saving form name:", error);
+      toast.error(error?.message || "Internal Server Error");
+    }
+  };
+
+  // Handle saving the target email
+  const saveTargetEmail = async () => {
+    const email = getValues("email");
+    try {
+      const payload = { formId: selectedForm?.formId, email };
+      const res = await updateForm(payload);
+      const result = await res.json();
+      if (result?.success) {
+        setSelectedForm((prev) => ({ ...prev, email }));
+        toast.success("Target email saved!");
+      } else {
+        toast.error(res?.message || "Failed to save email.");
+      }
+    } catch (error) {
+      console.error("Error saving target email:", error);
+      toast.error(error?.message || "Internal Server Error");
+    }
+  };
+
+  // Handle form enable toggle
+  const toggleFormEnable = async (checked) => {
+    try {
+      const payload = { formId: selectedForm?.formId, active: checked };
+      const res = await updateForm(payload);
+      const result = await res.json();
+      if (result?.success) {
+        setSelectedForm((prev) => ({ ...prev, active: checked }));
+        toast.success(`Form ${checked ? "enabled" : "disabled"}!`);
+      } else {
+        toast.error(res?.message || "Failed to update form enable status.");
+      }
+    } catch (error) {
+      console.error("Error updating form enable status:", error);
+      toast.error(error?.message || "Internal Server Error");
     }
   };
 
   // Handle email notifications toggle
-  const onEmailNotificationChange = async (checked) => {
-    // API call to save email notification settings
+  const toggleEmailNotification = async (checked) => {
     try {
-      // Save email notification setting
-      console.log("Email Notifications setting:", checked);
-      // Example API call to save the email notification setting
-      // await saveEmailNotifications(checked);
-
-      setSelectedForm((prev) => ({
-        ...prev,
-        emailNotifications: checked,
-      }));
-
-      alert("Email notifications setting saved!");
-    } catch (error) {
-      console.error("Error saving email notifications:", error);
-    }
-  };
-
-  const DeleteFormFunction = async () => {
-    try {
-      const res = await DeleteForm({ formId: selectedForm?.formId });
-      const result = await res?.json();
-      if (result.success) {
-        console.log(result);
-        navigate("/dashboard");
-        setSelectedForm(null);
+      const payload = { formId: selectedForm?.formId, notification: checked };
+      const res = await updateForm(payload);
+      const result = await res.json();
+      if (result?.success) {
+        setSelectedForm((prev) => ({ ...prev, notification: checked }));
+        toast.success(
+          `Email notifications ${checked ? "enabled" : "disabled"}!`
+        );
+      } else {
+        toast.error(
+          res?.message || "Failed to update email notification status."
+        );
       }
     } catch (error) {
+      console.error("Error updating email notifications:", error);
       toast.error(error?.message || "Internal Server Error");
     }
   };
+
+  // Handle form deletion
+  const DeleteFormFunction = async () => {
+    try {
+      const res = await DeleteForm({ formId: selectedForm?.formId });
+      if (res?.success) {
+        navigate("/dashboard");
+        setSelectedForm(null);
+        toast.success("Form deleted successfully!");
+      } else {
+        toast.error(res?.message || "Failed to delete form.");
+      }
+    } catch (error) {
+      console.error("Error deleting form:", error);
+      toast.error(error?.message || "Internal Server Error");
+    }
+  };
+
   const [DeleteConfim, setDeleteConfim] = useState(false);
+
   return (
     <>
+      {/* General Section */}
       <div className="mb-3 shadow bg-white rounded-md">
         <p className="border-b uppercase py-3 px-3 text-sm font-medium">
           General
         </p>
-        <form onSubmit={handleSubmit(onSubmit)} className="p-3">
+        <form className="p-3">
           {/* Form Name */}
           <div className="mb-3">
             <p className="text-lg font-semibold">Form Name</p>
@@ -91,8 +142,9 @@ const Settings = () => {
                 {...register("formName", { required: true })}
               />
               <button
-                type="submit"
+                type="button"
                 className="bg-blue-500 text-white font-medium px-4 p-2 rounded-md"
+                onClick={saveFormName}
               >
                 Save
               </button>
@@ -112,11 +164,8 @@ const Settings = () => {
               <p className="text-gray-500">Enable or disable the form.</p>
             </div>
             <Switch
-              checked={selectedForm.formEnable}
-              onChange={(checked) => {
-                setValue("formEnable", checked);
-                setSelectedForm((prev) => ({ ...prev, formEnable: checked }));
-              }}
+              checked={selectedForm?.active}
+              onChange={toggleFormEnable}
             />
           </div>
 
@@ -129,8 +178,8 @@ const Settings = () => {
               </p>
             </div>
             <Switch
-              checked={selectedForm.emailNotifications}
-              onChange={onEmailNotificationChange}
+              checked={selectedForm?.notification}
+              onChange={toggleEmailNotification}
             />
           </div>
 
@@ -144,8 +193,9 @@ const Settings = () => {
                 {...register("email", { required: true })}
               />
               <button
-                type="submit"
+                type="button"
                 className="bg-blue-500 text-white font-medium px-4 p-2 rounded-md"
+                onClick={saveTargetEmail}
               >
                 Save
               </button>
@@ -157,33 +207,8 @@ const Settings = () => {
           </div>
         </form>
       </div>
-      <Modal
-        open={DeleteConfim}
-        closeIcon={false}
-        // onCancel={() => setDeleteConfim(false)}
-        footer={false}
-        width={300}
-      >
-        <div className="mb-[-10px]">
-          <p className=" mb-2 text-center text-[1rem] font-medium">
-            Are you sure you want to delete "{selectedForm?.formName}" form ?
-          </p>
-          <div className=" flex  gap-2 w-full justify-center">
-            <button
-              onClick={() => setDeleteConfim(false)}
-              className="border hover:bg-gray-100 w-full rounded-md px-3 py-1"
-            >
-              Cancel
-            </button>
-            <button
-              onClick={() => DeleteFormFunction()}
-              className="border w-full hover:bg-red-600 bg-red-500 text-white rounded-md px-3 py-1"
-            >
-              Delete
-            </button>
-          </div>
-        </div>
-      </Modal>
+
+      {/* Danger Zone */}
       <div className="shadow bg-white rounded-md">
         <p className="border-b uppercase py-3 px-3 text-sm font-medium">
           Danger Zone
@@ -203,6 +228,29 @@ const Settings = () => {
           </div>
         </div>
       </div>
+
+      {/* Delete Confirmation Modal */}
+      <Modal open={DeleteConfim} closeIcon={false} footer={false} width={300}>
+        <div>
+          <p className="mb-2 text-center text-[1rem] font-medium">
+            Are you sure you want to delete "{selectedForm?.formName}" form?
+          </p>
+          <div className="flex gap-2 w-full justify-center">
+            <button
+              onClick={() => setDeleteConfim(false)}
+              className="border hover:bg-gray-100 w-full rounded-md px-3 py-1"
+            >
+              Cancel
+            </button>
+            <button
+              onClick={DeleteFormFunction}
+              className="border w-full hover:bg-red-600 bg-red-500 text-white rounded-md px-3 py-1"
+            >
+              Delete
+            </button>
+          </div>
+        </div>
+      </Modal>
     </>
   );
 };
