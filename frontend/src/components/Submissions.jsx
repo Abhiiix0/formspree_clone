@@ -1,35 +1,61 @@
-import { Checkbox, Modal, Table } from "antd";
+import { Checkbox, Modal, Table, Button } from "antd";
 import React, { useState } from "react";
 
 const Submissions = () => {
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedData, setSelectedData] = useState(null);
+  const [columnModalVisible, setColumnModalVisible] = useState(false);
+  const [visibleColumns, setVisibleColumns] = useState([
+    "index",
+    "Date",
+    "name",
+    "email",
+    "message",
+    "select",
+  ]);
+
+  // Dummy data for the table
+  const data = [
+    {
+      key: "1",
+      Date: "2024-11-26",
+      name: "John Doe",
+      email: "johndoe@example.com",
+      message: "This is a sample message from John.",
+      gender: "Male",
+    },
+    // ... Add more data objects
+  ];
+
+  // Extract unique fields dynamically from data
+  const availableFields = Object.keys(data[0] || {}).filter(
+    (key) => key !== "key" && key !== "Date"
+  );
+
   const columns = [
     {
       title: "Index",
-      render: (text, record, index) => index + 1, // Display index (row number)
+      render: (text, record, index) => index + 1,
       width: 80,
       key: "index",
+      fixed: true,
     },
     {
-      title: "Name",
-      dataIndex: "name",
-      key: "name",
-      ellipsis: true, // Enable ellipsis for long text
+      title: "Date", // Always visible column
+      dataIndex: "Date",
+      key: "Date",
+      ellipsis: true,
+      width: 150, // Optional, adjust width as needed
     },
-    {
-      title: "Email",
-      dataIndex: "email",
-      key: "email",
-      ellipsis: true, // Enable ellipsis for long text
-    },
-    {
-      title: "Message",
-      dataIndex: "message",
-      key: "message",
-      ellipsis: true, // Enable ellipsis for long text
-    },
+    ...availableFields
+      .filter((field) => field !== "Date" && visibleColumns.includes(field)) // Exclude 'Date' from dynamic fields
+      .map((field) => ({
+        title: field.charAt(0).toUpperCase() + field.slice(1),
+        dataIndex: field,
+        key: field,
+        ellipsis: true,
+      })),
     {
       render: (text, record) => (
         <Checkbox
@@ -37,155 +63,43 @@ const Submissions = () => {
           onChange={() => handleSelectChange(record.key)}
         />
       ),
-      width: 50, // Only width required for the checkbox
+      width: 50,
       key: "select",
+      fixed: true,
     },
   ];
 
-  // Dummy data for the table
-  const data = [
-    {
-      key: "1",
-      name: "John Doe",
-      email: "johndoe@example.com",
-      message: "This is a sample message from John.",
-    },
-    {
-      key: "2",
-      name: "Jane Smith",
-      email: "janesmith@example.com",
-      message: "Hi, I have a query regarding your services.",
-    },
-    {
-      key: "3",
-      name: "Michael Brown",
-      email: "michaelbrown@example.com",
-      message: "Can you please provide more details?",
-    },
-    {
-      key: "4",
-      name: "Emily Johnson",
-      email: "emilyjohnson@example.com",
-      message: "I am interested in your product.",
-    },
-    {
-      key: "5",
-      name: "Chris Davis",
-      email: "chrisdavis@example.com",
-      message: "Need support for an issue.",
-    },
-    {
-      key: "6",
-      name: "Sarah Wilson",
-      email: "sarahwilson@example.com",
-      message: "When is the next update coming?",
-    },
-    {
-      key: "7",
-      name: "David Martinez",
-      email: "davidmartinez@example.com",
-      message: "Thanks for the quick response!",
-    },
-    {
-      key: "8",
-      name: "Jessica Garcia",
-      email: "jessicagarcia@example.com",
-      message: "How do I access my account?",
-    },
-    {
-      key: "9",
-      name: "Daniel Taylor",
-      email: "danieltaylor@example.com",
-      message: "I am having trouble with the login.",
-    },
-    {
-      key: "10",
-      name: "Lisa White",
-      email: "lisawhite@example.com",
-      message: "Great service, thank you!",
-    },
-    {
-      key: "11",
-      name: "Matthew Harris",
-      email: "matthewharris@example.com",
-      message: "Looking forward to your reply.",
-    },
-    {
-      key: "12",
-      name: "Olivia Clark",
-      email: "oliviaclark@example.com",
-      message: "Please update me on the status.",
-    },
-    {
-      key: "13",
-      name: "James Lewis",
-      email: "jameslewis@example.com",
-      message: "I found an issue with your app.",
-    },
-    {
-      key: "14",
-      name: "Sophia Robinson",
-      email: "sophiarobinson@example.com",
-      message: "Thanks for the information!",
-    },
-    {
-      key: "15",
-      name: "Benjamin Walker",
-      email: "benjaminwalker@example.com",
-      message: "How can I reset my password?",
-    },
-    {
-      key: "16",
-      name: "Mia Hall",
-      email: "miahall@example.com",
-      message: "Can you share the pricing details?",
-    },
-    {
-      key: "17",
-      name: "Ethan Young",
-      email: "ethanyoung@example.com",
-      message: "What are the features of the new update?",
-    },
-    {
-      key: "18",
-      name: "Isabella King",
-      email: "isabellaking@example.com",
-      message: "Is there a trial version available?",
-    },
-    {
-      key: "19",
-      name: "Alexander Wright",
-      email: "alexanderwright@example.com",
-      message: "I am facing issues with the payment process.",
-    },
-    {
-      key: "20",
-      name: "Ava Green",
-      email: "avagreen@example.com",
-      message: "Please send me the documentation.",
-    },
-  ];
-  // Handle row selection
   const handleSelectChange = (key) => {
     const newSelectedRowKeys = [...selectedRowKeys];
     const index = newSelectedRowKeys.indexOf(key);
     if (index >= 0) {
-      newSelectedRowKeys.splice(index, 1); // Remove the key if already selected
+      newSelectedRowKeys.splice(index, 1); // Remove if already selected
     } else {
-      newSelectedRowKeys.push(key); // Add the key if not selected
+      newSelectedRowKeys.push(key); // Add if not selected
     }
     setSelectedRowKeys(newSelectedRowKeys);
   };
 
-  // Handle row click to open modal
   const handleRowClick = (record, e) => {
     if (e.target.type !== "checkbox") {
       setSelectedData(record);
-      setIsModalVisible(true); // Show modal with the clicked row data
+      setIsModalVisible(true);
     }
   };
+
+  const handleColumnVisibilityChange = (field) => {
+    const updatedColumns = [...visibleColumns];
+    if (updatedColumns.includes(field)) {
+      updatedColumns.splice(updatedColumns.indexOf(field), 1);
+    } else {
+      updatedColumns.push(field);
+    }
+    setVisibleColumns(updatedColumns);
+  };
+
   return (
-    <div>
+    <div className=" ">
+      {/* Search Input */}
       <div className="mb-3">
         <input
           type="text"
@@ -194,7 +108,21 @@ const Submissions = () => {
         />
       </div>
 
-      <div>
+      {/* Settings Button */}
+      <div className="mb-3 flex justify-end">
+        <button
+          className=" border py-2 px-3 rounded-md bg-blue-500 hover:bg-blue-600 text-white font-medium"
+          onClick={() => setColumnModalVisible(true)}
+        >
+          Columns Settings
+        </button>
+      </div>
+
+      {/* Table */}
+      <div
+        style={{ width: "100%" }}
+        className=" overflow-hidden  min-h-[400px] md:h-full"
+      >
         <Table
           columns={columns}
           dataSource={data}
@@ -202,29 +130,52 @@ const Submissions = () => {
           bordered
           rowKey="key"
           onRow={(record) => ({
-            onClick: (e) => handleRowClick(record, e), // Handle row click
+            onClick: (e) => handleRowClick(record, e),
           })}
+          // scroll={{ x: "max-content" }}
         />
       </div>
 
-      {/* Modal to show detailed data */}
+      {/* Row Detail Modal */}
       {selectedData && (
         <Modal
           title="Submission Details"
           open={isModalVisible}
           onCancel={() => setIsModalVisible(false)}
           footer={null}
+          // className=" "
+          // width="100%"
         >
           <div>
-            <h3>Name:</h3>
-            <p>{selectedData.name}</p>
-            <h3>Email:</h3>
-            <p>{selectedData.email}</p>
-            <h3>Message:</h3>
-            <p>{selectedData.message}</p>
+            {Object.entries(selectedData).map(([key, value]) => (
+              <div key={key}>
+                <h3 className=" font-semibold">
+                  {key.charAt(0).toUpperCase() + key.slice(1)}:
+                </h3>
+                <p className=" text-gray-500">{value}</p>
+              </div>
+            ))}
           </div>
         </Modal>
       )}
+
+      {/* Column Settings Modal */}
+      <Modal
+        title="Manage Columns"
+        open={columnModalVisible}
+        onCancel={() => setColumnModalVisible(false)}
+        footer={null}
+      >
+        {availableFields.map((field) => (
+          <Checkbox
+            key={field}
+            checked={visibleColumns.includes(field)}
+            onChange={() => handleColumnVisibilityChange(field)}
+          >
+            {field.charAt(0).toUpperCase() + field.slice(1)}
+          </Checkbox>
+        ))}
+      </Modal>
     </div>
   );
 };

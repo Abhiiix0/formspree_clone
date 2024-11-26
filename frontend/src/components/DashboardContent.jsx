@@ -29,12 +29,12 @@ const DashboardContent = () => {
   //   };
   //   fetchForm();
   // }, []);
-
+  const { id } = useParams(); // Get the id from the URL
   useEffect(() => {
     // if (location?.pathname !== "/dashboard") {
     // }
     setselectedOption("intigration");
-  }, []);
+  }, [id]);
 
   return (
     <div className=" w-full  h-full flex">
