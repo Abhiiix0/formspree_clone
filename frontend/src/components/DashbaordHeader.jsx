@@ -1,7 +1,7 @@
 import { LogoutOutlined, MenuOutlined } from "@ant-design/icons";
 import React, { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { getAllForm } from "../Service/Api";
+import { getAllForm, getUserData } from "../Service/Api";
 import { useAppContext } from "../context/AppContext";
 import toast from "react-hot-toast";
 import { Drawer } from "antd";
@@ -12,11 +12,22 @@ const DashbaordHeader = () => {
     localStorage.removeItem("token");
     navigate("/login");
   };
-  const { selectedForm, setSelectedForm } = useAppContext();
+  const { selectedForm, setSelectedForm, setUser } = useAppContext();
   const [menu, setmenu] = useState(false);
   const onClose = () => {
     setmenu(false);
   };
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const res = await getUserData();
+      const result = await res.json();
+      console.log(result);
+      setUser(result.data);
+    };
+    fetchUserData();
+  }, []);
+
   return (
     <div className="h-[10vh] bg-white w-full">
       <div className=" flex justify-between border-b h-full items-center px-4">

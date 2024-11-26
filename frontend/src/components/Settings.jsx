@@ -5,12 +5,12 @@ import { useForm } from "react-hook-form";
 import { useAppContext } from "../context/AppContext";
 import toast from "react-hot-toast";
 import { DeleteForm, updateForm } from "../Service/Api";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const Settings = () => {
-  const { selectedForm, setSelectedForm } = useAppContext();
+  const { selectedForm, setSelectedForm, fetchSIngleForm } = useAppContext();
   const navigate = useNavigate();
-
+  const { id } = useParams(); // Get the id from the URL
   const {
     register,
     handleSubmit,
@@ -109,12 +109,14 @@ const Settings = () => {
   const DeleteFormFunction = async () => {
     try {
       const res = await DeleteForm({ formId: selectedForm?.formId });
-      if (res?.success) {
+      console.log(res);
+      const result = await res.json();
+      if (result?.success) {
         navigate("/dashboard");
         setSelectedForm(null);
         toast.success("Form deleted successfully!");
       } else {
-        toast.error(res?.message || "Failed to delete form.");
+        toast.error(result?.message || "Failed to delete form.");
       }
     } catch (error) {
       console.error("Error deleting form:", error);
@@ -123,7 +125,9 @@ const Settings = () => {
   };
 
   const [DeleteConfim, setDeleteConfim] = useState(false);
-
+  useEffect(() => {
+    fetchSIngleForm(id);
+  }, [id]);
   return (
     <>
       {/* General Section */}

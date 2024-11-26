@@ -12,34 +12,40 @@ import Submissions from "./components/Submissions";
 import FromNotSelect from "./components/FromNotSelect";
 import PageNotFound from "./pages/PageNotFound";
 import Account from "./pages/Account";
+import { AppProvider } from "./context/AppContext";
 // Lazy load the components
 const Home = lazy(() => import("./pages/Home"));
 
 const App = () => {
   return (
     <Router>
-      <Suspense fallback={<div>Loading...</div>}>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route
-            path="/dashboard"
-            element={
-              <PrivateRoute>
-                <Dashboard />
-              </PrivateRoute>
-            }
-          >
-            <Route path="/dashboard/form/:id" element={<Intigration />} />
-            <Route path="/dashboard" element={<FromNotSelect />} />
-          </Route>
-          <Route path="/account" element={<Account />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Register />} />
+      <AppProvider>
+        <Suspense fallback={<div>Loading...</div>}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route
+              path="/dashboard"
+              element={
+                <PrivateRoute>
+                  <Dashboard />
+                </PrivateRoute>
+              }
+            >
+              <Route path="/dashboard/form/:id" element={<Intigration />} />
+              <Route path="/dashboard" element={<FromNotSelect />} />
+            </Route>
+            <Route path="/account" element={<Account />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Register />} />
 
-          <Route path="/signup/OtpVerification" element={<OtpVerification />} />
-          <Route path="/*" element={<PageNotFound />} />
-        </Routes>
-      </Suspense>
+            <Route
+              path="/signup/OtpVerification"
+              element={<OtpVerification />}
+            />
+            <Route path="/*" element={<PageNotFound />} />
+          </Routes>
+        </Suspense>
+      </AppProvider>
     </Router>
   );
 };

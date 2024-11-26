@@ -1,15 +1,22 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
+import { getSingleForm } from "../Service/Api";
+import { useParams } from "react-router-dom";
+import { useAppContext } from "../context/AppContext";
 const Integration = () => {
   const [selectedLanguage, setSelectedLanguage] = useState("HTML");
-
+  const { id } = useParams(); // Get the id from the URL
   const handleCopy = () => {
     navigator.clipboard.writeText(endpointUrl).then(() => {
       toast.success("Copied to clipboard!");
     });
   };
+  const { selectedForm, setSelectedForm, fetchSIngleForm } = useAppContext();
+  useEffect(() => {
+    fetchSIngleForm(id);
+  }, [id]);
 
   const endpointUrl = `${process.env.BACKEND_URL}/api/form/3796869e-be1f-4860-adba-7db5f4bd26b8`;
 

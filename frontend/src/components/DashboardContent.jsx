@@ -8,9 +8,10 @@ import { useEffect } from "react";
 import Intigration from "./Intigration.jsx";
 import Settings from "./Settings.jsx";
 import Submissions from "./Submissions.jsx";
+import { useParams } from "react-router-dom";
+import { getSingleForm } from "../Service/Api.js";
 const DashboardContent = () => {
   const location = useLocation();
-  console.log(location);
   const navigate = useNavigate();
 
   const { selectedForm, setSelectedForm } = useAppContext();
@@ -18,11 +19,22 @@ const DashboardContent = () => {
   const [selectedOption, setselectedOption] = useState(
     location.pathname.split("/")[location.pathname.split("/").length - 1]
   );
+
+  // useEffect(() => {
+  //   const fetchForm = async () => {
+  //     const formid = id;
+  //     const res = await getSingleForm(formid);
+  //     const result = await res.json();
+  //     console.log(result);
+  //   };
+  //   fetchForm();
+  // }, []);
+
   useEffect(() => {
-    if (location?.pathname !== "/dashboard") {
-      setselectedOption("intigration");
-    }
-  }, [selectedForm]);
+    // if (location?.pathname !== "/dashboard") {
+    // }
+    setselectedOption("intigration");
+  }, []);
 
   return (
     <div className=" w-full  h-full flex">

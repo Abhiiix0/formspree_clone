@@ -1,11 +1,31 @@
 const baseUrl = "http://localhost:8080/api";
 
+export const getUserData = () => {
+  return fetch(baseUrl + "/getuserdetails", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    credentials: "include",
+  });
+};
 export const getAllForm = () => {
   return fetch(baseUrl + "/forms", {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
     },
+    credentials: "include",
+  });
+};
+
+export const getSingleForm = (payload) => {
+  return fetch(baseUrl + "/get-single-form", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(payload),
     credentials: "include",
   });
 };

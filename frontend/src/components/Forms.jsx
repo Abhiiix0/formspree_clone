@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 
 const Forms = () => {
   const navigate = useNavigate();
-  const { selectedForm, setSelectedForm } = useAppContext();
+  const { selectedForm, setSelectedForm, user, setUser } = useAppContext();
   const {
     register,
     handleSubmit,
@@ -53,7 +53,7 @@ const Forms = () => {
   const submitData = async (data) => {
     const payload = {
       ...data,
-      userId: "6739c4ac65eae806b221ffce",
+      userId: user._id,
     };
     const encPayload = { encData: encryptMessage(payload) };
 
@@ -70,7 +70,7 @@ const Forms = () => {
 
   const SelectForm = (form) => {
     navigate(`/dashboard/form/${form?._id}`);
-    setSelectedForm(form); // set in global
+    // setSelectedForm(form); // set in global
   };
   useEffect(() => {
     fetchForms();

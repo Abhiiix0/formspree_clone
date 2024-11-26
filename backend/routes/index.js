@@ -12,11 +12,13 @@ import { DeleteFrom } from "../controller/DeleteForm.js";
 import { DeleteSubmission } from "../controller/DeleteSubmission.js";
 import decryptMiddleware from "../middleware/DecryptMiddleware.js";
 import { UpdateForm } from "../controller/UpdateForm.js";
+import { GetSingleForm } from "../controller/GetSingleForm.js";
 
 const router = express.Router();
 router.post("/formdata", GetFormSubmission);
 router.post("/registration", Registration);
 router.post("/otp-verify", OtpVerify);
+router.post("/get-single-form", verifyToken, GetSingleForm);
 router.post("/updateform", verifyToken, UpdateForm);
 router.post("/login", decryptMiddleware, Login);
 router.delete("/deleteform", DeleteFrom);
