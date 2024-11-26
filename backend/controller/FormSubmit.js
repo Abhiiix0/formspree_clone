@@ -5,6 +5,7 @@ export async function FormSubmit(req, res) {
   console.log(req.body);
   const { formId } = req.params;
   const submissionData = req.body;
+  // const datas = { ...submissionData, date: Date.now() };
   try {
     const form = await FormModel.findOne({ formId });
     if (!form) return res.status(404).json({ message: "Form not found" });

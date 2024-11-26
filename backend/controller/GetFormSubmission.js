@@ -8,9 +8,16 @@ export async function GetFormSubmission(req, res) {
     const submissions = await SubmissionModel.find({ formId }).select(
       " -formId -__v"
     );
+    const formattedData = submissions.map((submission, index) => ({
+      key: submission._id,
+      email: submission.data.email,
+      message: submission.data.message,
+      date: new Date(submission.data.date).toLocaleString(), // Convert timestamp to readable format
+      submittedAt: new Date(submission.submittedAt).toLocaleString(),
+    }));
     // console.log(submissions);
     return res.status(200).json({
-      data: submissions,
+      data: formattedData,
       message: "Submissions retrieved successfully",
     });
   } catch (error) {

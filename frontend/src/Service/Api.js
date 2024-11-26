@@ -61,3 +61,14 @@ export const updateForm = (payload) => {
     credentials: "include",
   });
 };
+
+export const getFormSUbmissions = (payload) => {
+  return fetch(baseUrl + "/formdata", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(payload),
+    credentials: "include",
+  });
+};

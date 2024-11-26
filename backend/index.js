@@ -15,7 +15,7 @@ app.use(
     credentials: true,
   })
 );
-// app.use(bodyParser.urlencoded({ extended: true })); // Parses form data
+app.use(bodyParser.urlencoded({ extended: true })); // Parses form data
 app.use(express.json());
 app.use(cookieParser());
 const port = 8080;
