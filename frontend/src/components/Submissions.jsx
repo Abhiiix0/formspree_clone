@@ -146,9 +146,7 @@ const Submissions = () => {
         >
           <div>
             {Object.entries(selectedData)
-              .filter(
-                ([key]) => !["index", "submittedAt", "Date"].includes(key)
-              ) // Exclude these fields
+              .filter(([key]) => !["index", "id"].includes(key)) // Exclude these fields
               .map(([key, value]) => (
                 <div key={key}>
                   <h3 className="font-semibold">

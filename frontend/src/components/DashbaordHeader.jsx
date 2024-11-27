@@ -43,7 +43,9 @@ const DashbaordHeader = () => {
             Dashboard
           </Link>
           <p className="text-lg cursor-pointer">Forms</p>
-          <p className="text-lg cursor-pointer">Account</p>
+          <Link to="/account" className="text-lg cursor-pointer">
+            Account
+          </Link>
           <p onClick={() => logout()} className=" text-xl cursor-pointer">
             <LogoutOutlined className=" text-red-500 " />
           </p>
@@ -66,7 +68,9 @@ const DashbaordHeader = () => {
               Dashboard
             </Link>
             <Link className="font-medium cursor-pointer">Forms</Link>
-            <Link className="font-medium cursor-pointer">Account</Link>
+            <Link to="/account" className="font-medium cursor-pointer">
+              Account
+            </Link>
           </div>
           <p
             onClick={() => logout()}

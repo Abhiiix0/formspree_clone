@@ -18,7 +18,7 @@ const Footer = () => {
     }
   }, [id]);
   return (
-    <footer className="h-auto py-4 sm:py-6 border-t bg-white flex flex-col md:flex-row items-center justify-between px-4 md:px-12">
+    <footer className="h-fit py-4 sm:py-6 border-t bg-white flex flex-col md:flex-row items-center justify-between px-4 md:px-12">
       {/* Top Section - Mobile Only */}
       <div className="text-gray-600 text-sm mb-3 md:mb-0">
         &copy; {new Date().getFullYear()} Your Company. All rights reserved.
