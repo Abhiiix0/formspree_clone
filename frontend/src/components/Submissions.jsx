@@ -14,8 +14,14 @@ const Submissions = () => {
   const [visibleColumns, setVisibleColumns] = useState([]);
 
   const availableFields = formSubmissions.length
-    ? Object.keys(formSubmissions[0]).filter(
-        (key) => key !== "key" && key !== "submittedAt" && key !== "date"
+    ? Array.from(
+        new Set(
+          formSubmissions.flatMap((submission) =>
+            Object.keys(submission).filter(
+              (key) => key !== "key" && key !== "submittedAt" && key !== "date"
+            )
+          )
+        )
       )
     : [];
 
@@ -88,6 +94,7 @@ const Submissions = () => {
       const payload = { formId: selectedForm?.formId };
       const res = await getFormSUbmissions(payload);
       const result = await res.json();
+      console.log([...result?.data]);
       setFormSubmissions([...result?.data]);
     } catch (error) {
       toast.error(error?.message || error);

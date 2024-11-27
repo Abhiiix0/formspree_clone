@@ -8,13 +8,23 @@ export async function GetFormSubmission(req, res) {
     const submissions = await SubmissionModel.find({ formId }).select(
       " -formId -__v"
     );
-    const formattedData = submissions.map((submission, index) => ({
-      key: submission._id,
-      email: submission.data.email,
-      message: submission.data.message,
-      date: new Date(submission.data.date).toLocaleString(), // Convert timestamp to readable format
-      submittedAt: new Date(submission.submittedAt).toLocaleString(),
-    }));
+    const formattedData = submissions.map((submission) => {
+      // Extract dynamic fields from submission.data
+      const dynamicFields = Object.keys(submission.data);
+
+      // Build an object with dynamic fields and add the key and submittedAt
+      const submissionDetails = dynamicFields.reduce((acc, field) => {
+        acc[field] = submission.data[field]; // Add each field dynamically
+        return acc;
+      }, {});
+
+      // Add additional fields like key and submittedAt
+      return {
+        ...submissionDetails, // Include all dynamic fields
+        id: submission._id,
+        submittedAt: new Date(submission.submittedAt).toLocaleString(),
+      };
+    });
     // console.log(submissions);
     return res.status(200).json({
       data: formattedData,
