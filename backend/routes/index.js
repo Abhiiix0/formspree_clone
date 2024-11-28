@@ -13,19 +13,21 @@ import { DeleteSubmission } from "../controller/DeleteSubmission.js";
 import decryptMiddleware from "../middleware/DecryptMiddleware.js";
 import { UpdateForm } from "../controller/UpdateForm.js";
 import { GetSingleForm } from "../controller/GetSingleForm.js";
+import { UserDetailUpdate } from "../controller/UserDetialUpdate.js";
 
 const router = express.Router();
-router.post("/formdata", GetFormSubmission);
+router.post("/formdata", verifyToken, GetFormSubmission);
 router.post("/registration", Registration);
 router.post("/otp-verify", OtpVerify);
 router.post("/get-single-form", verifyToken, GetSingleForm);
 router.post("/updateform", verifyToken, UpdateForm);
-router.post("/login", decryptMiddleware, Login);
-router.delete("/deleteform", DeleteFrom);
-router.delete("/deletesubmission", DeleteSubmission);
+router.post("/login", Login);
+router.delete("/deleteform", verifyToken, DeleteFrom);
+router.delete("/deletesubmission", verifyToken, DeleteSubmission);
 router.get("/getuserdetails", verifyToken, UserDetail);
-router.post("/create-form", decryptMiddleware, CreateForm);
-router.post("/:formId", FormSubmit);
+router.put("/update-userdetails", verifyToken, UserDetailUpdate);
+router.post("/create-form", verifyToken, decryptMiddleware, CreateForm);
+router.post("/:formId", verifyToken, FormSubmit);
 router.get("/forms", verifyToken, GetAllForm);
 
 export default router;
