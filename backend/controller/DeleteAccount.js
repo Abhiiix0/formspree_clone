@@ -37,7 +37,7 @@ export async function DeleteAccount(req, res) {
 
     res.status(200).json({
       success: true,
-      message: "Account and all data deleted successfully.",
+      //   message: "Account and all data deleted successfully.",
     });
   } catch (error) {
     res.status(500).json({

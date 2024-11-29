@@ -6,8 +6,10 @@ import { useForm } from "react-hook-form";
 import { UpdateUserDetails } from "../Service/Api";
 import toast from "react-hot-toast";
 import { DeleteAccount } from "../Service/Api";
+import { useNavigate } from "react-router-dom";
 
 const AccComponent = () => {
+  const navigate = useNavigate();
   const { user, setUser, fetchUserData } = useAppContext();
   const [editMode, setEditMode] = useState("Password");
   const [EditModal, setEditModal] = useState(false);
@@ -113,7 +115,8 @@ const AccComponent = () => {
       const res = await DeleteAccount(data);
       const result = await res.json();
       if (result.success) {
-        toast.success(result.message);
+        navigate("/login");
+        // toast.success(result.message);
       }
       if (result.error) {
         toast.error(result.message);
