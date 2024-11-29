@@ -127,6 +127,12 @@ const AccComponent = () => {
     }
     console.log("deleteData", data);
   };
+
+  function calculatePercentage(submissionsUse, submissionLimit) {
+    if (!submissionLimit || submissionLimit === 0) return 0; // Prevent division by zero
+    const percent = (submissionsUse / submissionLimit) * 100;
+    return Math.min(percent, 100); // Ensure it doesn't exceed 100%
+  }
   return (
     <div>
       <Modal
@@ -341,12 +347,25 @@ const AccComponent = () => {
           <div className="flex flex-col">
             <p className="text-lg font-semibold">Monthly Submissions</p>
             <div className=" flex flex-col gap-1 w-full">
-              <p className=" font-semibold text-xl text-gray-500">0 / 50</p>
+              <p className=" font-semibold text-xl text-gray-500">
+                <span className=" text-black mr-[4px]">
+                  {user?.submissionsuse || 0}
+                </span>
+                / {user?.submissionlimit}
+              </p>
               <Progress
-                percent={30}
+                percent={calculatePercentage(
+                  user?.submissionsuse,
+                  user?.submissionlimit
+                )}
                 size={{ height: "14px" }}
                 showInfo={false}
-                si
+                strokeColor={
+                  calculatePercentage(
+                    user?.submissionsuse,
+                    user?.submissionlimit
+                  ) >= 90 && "red"
+                }
               />
             </div>
           </div>
