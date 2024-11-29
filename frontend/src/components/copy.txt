@@ -5,19 +5,13 @@ import { Modal, Progress } from "antd";
 import { useForm } from "react-hook-form";
 import { UpdateUserDetails } from "../Service/Api";
 import toast from "react-hot-toast";
-import { DeleteAccount } from "../Service/Api";
 
 const AccComponent = () => {
   const { user, setUser, fetchUserData } = useAppContext();
   const [editMode, setEditMode] = useState("Password");
   const [EditModal, setEditModal] = useState(false);
   function formatDateToCustomString(isoDate) {
-    if (!isoDate) return "Invalid date"; // Handle empty or invalid input
-
     const date = new Date(isoDate);
-
-    // Ensure the date is valid
-    if (isNaN(date.getTime())) return "Invalid date";
 
     const options = {
       timeZone: "UTC",
@@ -29,20 +23,15 @@ const AccComponent = () => {
       hour12: true,
     };
 
+    // Format the date using toLocaleString
     const formattedDate = date.toLocaleString("en-US", options);
 
-    // Split and validate the output structure
-    const parts = formattedDate?.split(", ");
-    if (parts.length < 2) return "Invalid formatted date";
-
-    const [monthDayYear, timeWithPeriod] = parts;
-    const [time, period] = timeWithPeriod?.split(" ") || [];
-
-    if (!time || !period || !monthDayYear) return "Formatting error";
+    // Extracting and reformatting the output
+    const [monthDayYear, timeWithPeriod] = formattedDate?.split(", ");
+    const [time, period] = timeWithPeriod?.split(" ");
 
     return `${time} ${period} UTC - ${monthDayYear}`;
   }
-
   const {
     register,
     reset,
@@ -50,7 +39,6 @@ const AccComponent = () => {
     setValue,
     formState: { errors },
   } = useForm();
-
   const HandelForm = async (data) => {
     console.log("hi");
     console.log(data);
@@ -101,29 +89,6 @@ const AccComponent = () => {
     setEditModal(true);
   };
   const [deleteModalOpen, setdeleteModalOpen] = useState(false);
-
-  const {
-    register: deleteRegister,
-    handleSubmit: handleDeleteSubmit,
-    reset: resetDelete,
-    formState: { errors: deleteErrors },
-  } = useForm();
-  const deleteAccount = async (data) => {
-    try {
-      const res = await DeleteAccount(data);
-      const result = await res.json();
-      if (result.success) {
-        toast.success(result.message);
-      }
-      if (result.error) {
-        toast.error(result.message);
-      }
-    } catch (error) {
-      console.error(error);
-      toast.error(error?.message || error);
-    }
-    console.log("deleteData", data);
-  };
   return (
     <div>
       <Modal
@@ -224,12 +189,9 @@ const AccComponent = () => {
         title={<p className=" text-xl font-semibold">Delete Account</p>}
         open={deleteModalOpen}
         footer={false}
-        onCancel={() => {
-          setdeleteModalOpen(false);
-          resetDelete();
-        }}
+        onCancel={() => setdeleteModalOpen(false)}
       >
-        <form onSubmit={handleDeleteSubmit(deleteAccount)}>
+        <form onSubmit={handleSubmit(HandelForm)}>
           <div className=" bg-red-300 w-full p-2 mb-2 rounded-md">
             <p className="text-white font-medium">
               Deleting your account will delete all forms and submissions.
@@ -242,19 +204,13 @@ const AccComponent = () => {
             <p className="text-lg font-semibold mb-1">Enter your password</p>
             <input
               type="text"
-              {...deleteRegister("deletePassword", {
-                required: "Please enter your password",
-                minLength: {
-                  value: 8,
-                  message: "Password must be at least 8 characters long",
-                },
+              {...register("name", {
+                required: "Please enter user name",
               })}
               className=" bg-slate-100 outline-none px-2 border rounded-md py-2 w-full"
             />
-            {deleteErrors?.deletePassword && (
-              <p className=" m-0  text-red-500">
-                {deleteErrors?.deletePassword.message}
-              </p>
+            {errors?.name && (
+              <p className=" m-0  text-red-500">{errors.name.message}</p>
             )}
           </div>
           <div className=" flex justify-end mt-3">

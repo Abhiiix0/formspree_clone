@@ -14,6 +14,7 @@ import decryptMiddleware from "../middleware/DecryptMiddleware.js";
 import { UpdateForm } from "../controller/UpdateForm.js";
 import { GetSingleForm } from "../controller/GetSingleForm.js";
 import { UserDetailUpdate } from "../controller/UserDetialUpdate.js";
+import { DeleteAccount } from "../controller/DeleteAccount.js";
 
 const router = express.Router();
 router.post("/formdata", verifyToken, GetFormSubmission);
@@ -21,8 +22,9 @@ router.post("/registration", Registration);
 router.post("/otp-verify", OtpVerify);
 router.post("/get-single-form", verifyToken, GetSingleForm);
 router.post("/updateform", verifyToken, UpdateForm);
-router.post("/login", Login);
+router.post("/login", decryptMiddleware, Login);
 router.delete("/deleteform", verifyToken, DeleteFrom);
+router.post("/delete-account", verifyToken, DeleteAccount);
 router.delete("/deletesubmission", verifyToken, DeleteSubmission);
 router.get("/getuserdetails", verifyToken, UserDetail);
 router.put("/update-userdetails", verifyToken, UserDetailUpdate);

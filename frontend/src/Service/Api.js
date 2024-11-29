@@ -9,6 +9,28 @@ export const getUserData = () => {
     credentials: "include",
   });
 };
+
+export const UpdateUserDetails = (payload) => {
+  return fetch(baseUrl + "/update-userdetails", {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(payload),
+    credentials: "include",
+  });
+};
+export const DeleteAccount = (payload) => {
+  return fetch(baseUrl + "/delete-account", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(payload),
+    credentials: "include",
+  });
+};
+
 export const getAllForm = () => {
   return fetch(baseUrl + "/forms", {
     method: "GET",

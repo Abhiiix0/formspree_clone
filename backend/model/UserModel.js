@@ -22,6 +22,14 @@ const UserSchema = new mongoose.Schema(
     otp: {
       type: String,
     },
+    submissionsuse: {
+      type: Number,
+      default: 0,
+    },
+    submissionlimit: {
+      type: Number,
+      default: 5,
+    },
   },
   {
     timestamps: true,

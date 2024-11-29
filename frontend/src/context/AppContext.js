@@ -1,7 +1,7 @@
 // src/context/AppContext.js
 import React, { createContext, useContext, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { getSingleForm } from "../Service/Api";
+import { getSingleForm, getUserData } from "../Service/Api";
 import toast from "react-hot-toast";
 
 // 1. Create the context
@@ -25,6 +25,17 @@ export const AppProvider = ({ children }) => {
     }
     setSelectedForm(result.data);
   };
+
+  const fetchUserData = async () => {
+    try {
+      const res = await getUserData();
+      const result = await res.json();
+      console.log(result);
+      setUser(result.data);
+    } catch (error) {
+      toast.error(error?.message || error);
+    }
+  };
   return (
     <AppContext.Provider
       value={{
@@ -32,6 +43,7 @@ export const AppProvider = ({ children }) => {
         setUser,
         forms,
         fetchSIngleForm,
+        fetchUserData,
         setforms,
         selectedForm,
         setSelectedForm,

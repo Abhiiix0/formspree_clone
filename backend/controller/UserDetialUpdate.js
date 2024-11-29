@@ -2,10 +2,10 @@ import bcrypt from "bcryptjs"; // To hash and compare passwords
 import User from "../model/UserModel.js"; // Assuming you have a User model
 
 export async function UserDetailUpdate(req, res) {
-  console.log(req.user);
+  // console.log(req.user);
   const { id } = req.user; // Assuming userId is retrieved from a verified token/session
   const { name, email, oldPassword, newPassword } = req.body;
-
+  console.log(req.body);
   try {
     // Fetch the user from the database
     const user = await User.findById(id);
@@ -31,7 +31,9 @@ export async function UserDetailUpdate(req, res) {
     if (oldPassword && newPassword) {
       const isMatch = await bcrypt.compare(oldPassword, user.password);
       if (!isMatch) {
-        return res.status(400).json({ message: "Old password is incorrect" });
+        return res
+          .status(400)
+          .json({ message: "Old password is incorrect", error: true });
       }
 
       const salt = await bcrypt.genSalt(10);
@@ -49,8 +51,10 @@ export async function UserDetailUpdate(req, res) {
         .json({ message: "No updates made.", success: true });
     }
 
-    return res.status(200).json({ messages, success: true });
+    return res.status(200).json({ message: messages[0], success: true });
   } catch (error) {
-    return res.status(500).json({ message: "Internal server error", error });
+    return res
+      .status(500)
+      .json({ message: error?.message || error, error: true });
   }
 }
