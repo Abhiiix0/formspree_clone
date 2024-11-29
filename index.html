@@ -3,40 +3,16 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Animal Tables</title>
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-    />
-    <style>
-      .animal-image {
-        border: 2px solid #ccc;
-        width: 100px;
-        height: auto;
-        transition: transform 0.3s;
-      }
-      .animal-image:hover {
-        transform: scale(1.5);
-      }
-      .blue-text {
-        color: blue;
-        font-style: italic;
-        font-weight: bold;
-      }
-    </style>
+    <title>Document</title>
   </head>
   <body>
-    <div class="container mt-5">
-      <h1>Big Cats</h1>
-      <div id="table1"></div>
-
-      <h1>Dogs</h1>
-      <div id="table2"></div>
-
-      <h1>Big Fish</h1>
-      <div id="table3"></div>
-    </div>
-
-    <script src="app.js"></script>
+    <form
+      action="http://localhost:8080/api/b6125165-b8f9-4c45-88de-d9320382d23e"
+      method="post"
+    >
+      <input type="text" name="name" placeholder="Enter your name" />
+      <input type="text" name="message" placeholder="Enter your message" />
+      <button type="submit">submit</button>
+    </form>
   </body>
 </html>

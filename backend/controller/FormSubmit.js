@@ -1,13 +1,22 @@
 import FormModel from "../model/FormModel.js";
 import SubmissionModel from "../model/SubmissionModel.js";
 import nodemailer from "nodemailer"; // Ensure nodemailer is imported
-
+import UserModel from "../model/UserModel.js";
 export async function FormSubmit(req, res) {
   console.log(req.body);
   const { formId } = req.params;
   const submissionData = req.body;
-
+  const { id } = req.user;
   try {
+    const user = await UserModel.findByIdAndUpdate(id);
+    if (user?.submissionsuse >= user.submissionlimit) {
+      return res
+        .status(400)
+        .json({
+          message: "You have reached your submission limit",
+          error: true,
+        });
+    }
     // Find the form by formId
     const form = await FormModel.findOne({ formId });
     if (!form) {
@@ -21,6 +30,8 @@ export async function FormSubmit(req, res) {
     // Save the submission data
     const submission = new SubmissionModel({ formId, data: submissionData });
     await submission.save();
+    await user.submissionsuse++;
+    await user.save();
 
     // Check if notifications are enabled
     if (form.notification) {
