@@ -6,16 +6,16 @@ export async function FormSubmit(req, res) {
   console.log(req.body);
   const { formId } = req.params;
   const submissionData = req.body;
-  const { id } = req.user;
+  // const { id } = req.user;
   try {
-    const user = await UserModel.findByIdAndUpdate(id);
+    const forms = await FormModel.findOne({ formId });
+    const user = await UserModel.findByIdAndUpdate(forms.userId);
     if (user?.submissionsuse >= user.submissionlimit) {
-      return res
-        .status(400)
-        .json({
-          message: "You have reached your submission limit",
-          error: true,
-        });
+      // return res.status(400).json({
+      //   message: "You have reached your submission limit",
+      //   error: true,
+      // });
+      res.redirect("https://fast-forms.vercel.app/submission-limit-Reached");
     }
     // Find the form by formId
     const form = await FormModel.findOne({ formId });
@@ -80,7 +80,7 @@ Your Team`,
       });
     }
 
-    res.status(201).json({ message: "Form submitted successfully" });
+    res.redirect("https://fast-forms.vercel.app/thankyousubmiting");
   } catch (error) {
     console.error(error);
     res
