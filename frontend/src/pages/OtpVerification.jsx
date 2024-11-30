@@ -57,13 +57,16 @@ const OtpVerification = () => {
 
     try {
       console.log({ email: user?.email, otp: otpCode });
-      const response = await fetch("http://localhost:8080/api/otp-verify", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email: user?.email, otp: otpCode }),
-      });
+      const response = await fetch(
+        `${process.env.REACT_APP_BACKEND_URL}/otp-verify`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email: user?.email, otp: otpCode }),
+        }
+      );
 
       const result = await response.json();
       if (response.ok) {
