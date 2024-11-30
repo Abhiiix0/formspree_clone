@@ -29,7 +29,7 @@ router.delete("/deletesubmission", verifyToken, DeleteSubmission);
 router.get("/getuserdetails", verifyToken, UserDetail);
 router.put("/update-userdetails", verifyToken, UserDetailUpdate);
 router.post("/create-form", verifyToken, decryptMiddleware, CreateForm);
-router.post("/:formId", verifyToken, FormSubmit);
+router.post("/:formId", FormSubmit);
 router.get("/forms", verifyToken, GetAllForm);
 
 export default router;

@@ -55,8 +55,6 @@ const AccComponent = () => {
   } = useForm();
 
   const HandelForm = async (data) => {
-    console.log("hi");
-    console.log(data);
     try {
       const res = await UpdateUserDetails(data);
       const result = await res.json();
@@ -124,10 +122,8 @@ const AccComponent = () => {
         toast.error(result.message);
       }
     } catch (error) {
-      console.error(error);
       toast.error(error?.message || error);
     }
-    console.log("deleteData", data);
   };
 
   return (
