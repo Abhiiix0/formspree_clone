@@ -6,16 +6,18 @@ export async function FormSubmit(req, res) {
   console.log(req.body);
   const { formId } = req.params;
   const submissionData = req.body;
-  const { id } = req.user;
+  // const { id } = req.user;
   try {
-    const user = await UserModel.findByIdAndUpdate(id);
+    const formm = await FormModel.findOne({ formId });
+    const user = await UserModel.findByIdAndUpdate(formm?.userId);
     if (user?.submissionsuse >= user.submissionlimit) {
+      // return res.status(400).json({
+      //   message: "You have reached your submission limit",
+      //   error: true,
+      // });
       return res
         .status(400)
-        .json({
-          message: "You have reached your submission limit",
-          error: true,
-        });
+        .redirect("http://localhost:3000/submission-limit-Reached");
     }
     // Find the form by formId
     const form = await FormModel.findOne({ formId });
@@ -45,7 +47,7 @@ export async function FormSubmit(req, res) {
         secure: false, // true for port 465, false for other ports
         auth: {
           user: "goodtimes4info@gmail.com",
-          pass: "klbuckvuuqdobprx",
+          pass: process.env.EMAIL_PASSWORD,
         },
       });
 
@@ -80,7 +82,8 @@ Your Team`,
       });
     }
 
-    res.status(201).json({ message: "Form submitted successfully" });
+    // res.status(201).json({ message: "Form submitted successfully"});
+    res.status(200).redirect("http://localhost:3000/thankyousubmiting");
   } catch (error) {
     console.error(error);
     res

@@ -19,26 +19,12 @@ const Forms = () => {
     reset,
     formState: { errors },
   } = useForm();
-  //   const forms = [
-  //     {
-  //       id: 1,
-  //       name: "Form 1",
-  //     },
-  //     {
-  //       id: 2,
-  //       name: "Form 2",
-  //     },
-  //     {
-  //       id: 3,
-  //       name: "Form 2",
-  //     },
-  //   ];
   const [forms, setforms] = useState([]);
-  //   const [selectedForm, setselectedForm] = useState();
+
   const fetchForms = async () => {
     try {
       const res = await getAllForm();
-      // console.log(res.data);
+
       const result = await res.json();
       if (result?.data.length !== 0) {
         // setSelectedForm(result?.data[0]);
@@ -46,7 +32,6 @@ const Forms = () => {
       }
       setforms([...result?.data]);
     } catch (error) {
-      console.log(error);
       toast.error("Something went wrong");
     }
   };
@@ -58,7 +43,6 @@ const Forms = () => {
     };
     const encPayload = { encData: encryptMessage(payload) };
 
-    console.log(payload, encPayload);
     const res = await CreateForm(encPayload);
     const result = await res.json();
     if (result?.success) {
@@ -66,19 +50,17 @@ const Forms = () => {
       fetchForms();
       setaddNewModal(false);
     }
-    console.log(result);
   };
 
   const SelectForm = (form) => {
     navigate(`/dashboard/form/${form?._id}`);
-    // setSelectedForm(form); // set in global
   };
   useEffect(() => {
     fetchForms();
   }, [selectedForm]);
   const [addNewModal, setaddNewModal] = useState(false);
   const location = useLocation();
-  console.log(location);
+
   return (
     <div className=" h-[100%] min-h-[80vh]">
       <Modal

@@ -18,7 +18,7 @@ export const AppProvider = ({ children }) => {
     const payload = { id: formid };
     const res = await getSingleForm(payload);
     const result = await res.json();
-    // console.log(result);
+
     if (res?.status === 404 || res?.status === 400) {
       toast.error("Form not found");
       navigate("/dashboard");
@@ -30,7 +30,7 @@ export const AppProvider = ({ children }) => {
     try {
       const res = await getUserData();
       const result = await res.json();
-      console.log(result);
+
       setUser(result.data);
     } catch (error) {
       toast.error(error?.message || error);

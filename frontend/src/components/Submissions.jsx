@@ -120,13 +120,13 @@ const Submissions = () => {
 
   return (
     <div>
-      <div className="mb-3">
+      {/* <div className="mb-3">
         <input
           type="text"
           className="py-2 w-full rounded-md border outline-none px-3"
           placeholder="Search Submissions..."
         />
-      </div>
+      </div> */}
 
       <div className="mb-3 flex gap-2 justify-end">
         <button

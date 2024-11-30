@@ -6,7 +6,6 @@ import { getSingleForm } from "../Service/Api";
 import { useParams } from "react-router-dom";
 import { useAppContext } from "../context/AppContext";
 const Integration = () => {
-  console.log("intigrate");
   const [selectedLanguage, setSelectedLanguage] = useState("HTML");
   const { id } = useParams(); // Get the id from the URL
   const handleCopy = () => {

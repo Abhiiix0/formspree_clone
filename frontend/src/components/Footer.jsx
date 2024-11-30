@@ -17,7 +17,7 @@ const Footer = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
-  console.log("footer");
+
   return (
     <footer className="h-fit py-4 sm:py-6 border-t bg-white flex flex-col md:flex-row items-center justify-between px-4 md:px-12">
       {/* Top Section - Mobile Only */}

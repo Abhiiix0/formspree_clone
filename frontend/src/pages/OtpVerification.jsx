@@ -56,7 +56,6 @@ const OtpVerification = () => {
     }
 
     try {
-      console.log({ email: user?.email, otp: otpCode });
       const response = await fetch("http://localhost:8080/api/otp-verify", {
         method: "POST",
         headers: {
@@ -68,7 +67,7 @@ const OtpVerification = () => {
       const result = await response.json();
       if (response.ok) {
         toast.success("OTP verified successfully");
-        // console.log(result);
+
         // Redirect to dashboard
         navigate("/login");
       } else {
@@ -77,8 +76,6 @@ const OtpVerification = () => {
         );
       }
     } catch (error) {
-      console.error("Error:", error);
-      //   alert("An error occurred. Please try again.");
       toast.error(error?.message || "An error occurred. Please try again.");
     }
   };

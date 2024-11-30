@@ -52,7 +52,6 @@ const Register = () => {
         toast.error(result?.message || "Something went wrong");
       }
     } catch (error) {
-      console.error("Error:", error);
       alert("An error occurred. Please try again.");
     }
   };

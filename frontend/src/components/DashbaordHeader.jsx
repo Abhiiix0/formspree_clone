@@ -22,7 +22,7 @@ const DashbaordHeader = () => {
     const fetchUserData = async () => {
       const res = await getUserData();
       const result = await res.json();
-      console.log(result);
+
       setUser(result.data);
     };
     fetchUserData();
