@@ -1,10 +1,18 @@
 import React from "react";
+import SubmissionUsage from "./SubmissionUsage";
+import { useAppContext } from "../context/AppContext";
 
 const BillingComp = () => {
+  const { user, fetchUserData } = useAppContext();
   return (
-    <div className="bg-white p-6 rounded-lg shadow-md">
-      <h2 className="text-2xl font-semibold mb-6">Billing Information</h2>
-      <p>Billing details go here.</p>
+    <div>
+      <SubmissionUsage
+        submissionlimit={user?.submissionlimit}
+        submissionsuse={user?.submissionsuse}
+      />
+      <div className=" grid place-content-center font-semibold text-2xl text-gray-300 shadow rounded-md h-[400px] w-full bg-white mt-3">
+        Cooming soon
+      </div>
     </div>
   );
 };

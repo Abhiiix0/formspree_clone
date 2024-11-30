@@ -6,6 +6,7 @@ import { getSingleForm } from "../Service/Api";
 import { useParams } from "react-router-dom";
 import { useAppContext } from "../context/AppContext";
 const Integration = () => {
+  console.log("intigrate");
   const [selectedLanguage, setSelectedLanguage] = useState("HTML");
   const { id } = useParams(); // Get the id from the URL
   const handleCopy = () => {
@@ -18,7 +19,7 @@ const Integration = () => {
     fetchSIngleForm(id);
   }, [id]);
 
-  const endpointUrl = `${process.env.BACKEND_URL}/api/form/3796869e-be1f-4860-adba-7db5f4bd26b8`;
+  const endpointUrl = `${process.env.REACT_APP_BACKEND_URL}/api/${selectedForm?.formId}`;
 
   const htmlCode = `
 <!-- Place this form HTML wherever you want your form -->
@@ -85,14 +86,14 @@ export default MyForm;
 
   return (
     <>
-      <div className="shadow mb-3 bg-white rounded-md">
+      <div className="shadow mb-3 w-full bg-white rounded-md">
         <div>
           <p className="border-b py-3 px-3 text-sm font-medium">
             FORM ENDPOINT
           </p>
           <div className="p-3">
             <div className="flex gap-2">
-              <p className="flex rounded-md items-center px-3 bg-slate-100 py-2 w-full">
+              <p className=" text-sm md:text-[16px] rounded-md  px-3 bg-slate-100 py-2 w-full">
                 {endpointUrl}
               </p>
               <button

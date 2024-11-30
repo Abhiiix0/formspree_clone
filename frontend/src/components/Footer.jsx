@@ -10,13 +10,14 @@ import { useParams } from "react-router-dom";
 
 const Footer = () => {
   const { id } = useParams(); // Get the id from the URL
-  const { selectedForm, setSelectedForm, fetchSIngleForm, setUser } =
-    useAppContext();
+  const { fetchSIngleForm } = useAppContext();
   useEffect(() => {
     if (id) {
       fetchSIngleForm(id);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
+  console.log("footer");
   return (
     <footer className="h-fit py-4 sm:py-6 border-t bg-white flex flex-col md:flex-row items-center justify-between px-4 md:px-12">
       {/* Top Section - Mobile Only */}
@@ -71,4 +72,4 @@ const Footer = () => {
   );
 };
 
-export default Footer;
+export default React.memo(Footer);

@@ -40,19 +40,18 @@ const DashboardContent = () => {
     <div className=" w-full  h-full flex">
       <div
         className={`  ${
-          location.pathname === "/dashboard"
-            ? "w-[100%] md:w-[20%]"
-            : " hidden md:block"
-        } border-r md:w-[20%] h-[80vh] bg-white p-4`}
+          location.pathname === "/dashboard" ? "w-[100%]" : " hidden md:block"
+        } border-r md:w-[20%] bg-white md:p-4`}
       >
         <Forms />
       </div>
+
       <div
         className={`  ${
           selectedOption === "intigration" ||
           selectedOption === "submissions" ||
           selectedOption === "setting"
-            ? "w-[100%]"
+            ? `${selectedForm && `w-[100%] `}`
             : "hidden md:block md:w-[80%]"
         } h-full bg-slate-100`}
       >

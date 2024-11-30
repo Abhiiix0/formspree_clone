@@ -6,7 +6,8 @@ import { Modal } from "antd";
 import { useForm } from "react-hook-form";
 import { useAppContext } from "../context/AppContext";
 import encryptMessage from "../Helper/Encryption";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import SubmissionUsage from "./SubmissionUsage";
 // import AppContext from "antd/es/app/context";
 
 const Forms = () => {
@@ -76,8 +77,10 @@ const Forms = () => {
     fetchForms();
   }, [selectedForm]);
   const [addNewModal, setaddNewModal] = useState(false);
+  const location = useLocation();
+  console.log(location);
   return (
-    <div>
+    <div className=" h-[100%] min-h-[80vh]">
       <Modal
         open={addNewModal}
         onCancel={() => {
@@ -138,35 +141,40 @@ const Forms = () => {
           </div>
         </form>
       </Modal>
-      <div className="md:hidden bg-slate-100 rounded-md mb-3 h-[300px]">
-        Charts
+      <div className="md:hidden bg-slate-100 p-4  md:p-0">
+        <SubmissionUsage
+          submissionlimit={user?.submissionlimit}
+          submissionsuse={user?.submissionsuse}
+        />
       </div>
-      <button
-        onClick={() => setaddNewModal(true)}
-        className=" h-12 hover:bg-slate-100 w-full rounded-md border"
-      >
-        <PlusOutlined className=" mr-2" />
-        Add New
-      </button>
-      <div className=" mt-4">
-        <h2 className="text-lg font-bold my-1 ">Forms</h2>
-        <div className=" flex flex-col gap-2">
-          {forms.map((form) => (
-            <p
-              key={form.formId}
-              onClick={() => {
-                SelectForm(form);
-              }}
-              className={` ${
-                selectedForm?.formId === form.formId && "bg-slate-100"
-              } font-medium cursor-pointer p-1 m-0 border hover:bg-slate-100 rounded-md`}
-            >
-              {form?.formName}
-            </p>
-          ))}
-          {forms?.length === 0 && (
-            <div className=" text-gray-400">No forms available</div>
-          )}
+      <div className=" p-4 md:p-0">
+        <button
+          onClick={() => setaddNewModal(true)}
+          className=" h-12 hover:bg-slate-100 px-1 w-full rounded-md border"
+        >
+          <PlusOutlined className=" mr-2" />
+          Add New
+        </button>
+        <div className=" mt-4">
+          <h2 className="text-lg font-bold my-1 ">Forms</h2>
+          <div className=" flex flex-col gap-2">
+            {forms.map((form) => (
+              <p
+                key={form.formId}
+                onClick={() => {
+                  SelectForm(form);
+                }}
+                className={` ${
+                  selectedForm?.formId === form.formId && "bg-slate-100"
+                }  cursor-pointer text-sm p-2 m-0 border hover:bg-slate-100 rounded-md`}
+              >
+                {form?.formName}
+              </p>
+            ))}
+            {forms?.length === 0 && (
+              <div className=" text-gray-400">No forms available</div>
+            )}
+          </div>
         </div>
       </div>
     </div>

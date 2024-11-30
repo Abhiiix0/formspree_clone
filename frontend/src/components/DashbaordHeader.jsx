@@ -17,7 +17,7 @@ const DashbaordHeader = () => {
   const onClose = () => {
     setmenu(false);
   };
-
+  console.log("header");
   useEffect(() => {
     const fetchUserData = async () => {
       const res = await getUserData();
@@ -29,7 +29,7 @@ const DashbaordHeader = () => {
   }, []);
 
   return (
-    <div className="h-[10vh] bg-white w-full">
+    <div className=" h-[70px] sm:h-20 bg-white w-full">
       <div className=" flex justify-between border-b h-full items-center px-4">
         <p className=" cursor-pointer font-bold text-2xl">LOGO</p>
         <div className="hidden sm:flex gap-6 items-center  justify-center">
@@ -85,4 +85,4 @@ const DashbaordHeader = () => {
   );
 };
 
-export default DashbaordHeader;
+export default React.memo(DashbaordHeader);

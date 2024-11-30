@@ -7,10 +7,11 @@ import { UpdateUserDetails } from "../Service/Api";
 import toast from "react-hot-toast";
 import { DeleteAccount } from "../Service/Api";
 import { useNavigate } from "react-router-dom";
+import SubmissionUsage from "./SubmissionUsage";
 
 const AccComponent = () => {
   const navigate = useNavigate();
-  const { user, setUser, fetchUserData } = useAppContext();
+  const { user, fetchUserData } = useAppContext();
   const [editMode, setEditMode] = useState("Password");
   const [EditModal, setEditModal] = useState(false);
   function formatDateToCustomString(isoDate) {
@@ -128,11 +129,6 @@ const AccComponent = () => {
     console.log("deleteData", data);
   };
 
-  function calculatePercentage(submissionsUse, submissionLimit) {
-    if (!submissionLimit || submissionLimit === 0) return 0; // Prevent division by zero
-    const percent = (submissionsUse / submissionLimit) * 100;
-    return Math.min(percent, 100); // Ensure it doesn't exceed 100%
-  }
   return (
     <div>
       <Modal
@@ -276,7 +272,7 @@ const AccComponent = () => {
           </div>
         </form>
       </Modal>
-      <div className=" bg-white rounded-md border">
+      <div className=" bg-white shadow rounded-md mb-3">
         <p className="border-b uppercase py-3 px-3 text-sm font-medium">
           Account
         </p>
@@ -339,38 +335,10 @@ const AccComponent = () => {
           </div>
         </div>
       </div>
-      <div className=" bg-white rounded-md mt-3 border">
-        <p className="border-b uppercase py-3 px-3 text-sm font-medium">
-          Usage
-        </p>
-        <div className="p-3 flex flex-col gap-2">
-          <div className="flex flex-col">
-            <p className="text-lg font-semibold">Monthly Submissions</p>
-            <div className=" flex flex-col gap-1 w-full">
-              <p className=" font-semibold text-xl text-gray-500">
-                <span className=" text-black mr-[4px]">
-                  {user?.submissionsuse || 0}
-                </span>
-                / {user?.submissionlimit}
-              </p>
-              <Progress
-                percent={calculatePercentage(
-                  user?.submissionsuse,
-                  user?.submissionlimit
-                )}
-                size={{ height: "14px" }}
-                showInfo={false}
-                strokeColor={
-                  calculatePercentage(
-                    user?.submissionsuse,
-                    user?.submissionlimit
-                  ) >= 90 && "red"
-                }
-              />
-            </div>
-          </div>
-        </div>
-      </div>
+      <SubmissionUsage
+        submissionlimit={user?.submissionlimit}
+        submissionsuse={user?.submissionsuse}
+      />
     </div>
   );
 };
