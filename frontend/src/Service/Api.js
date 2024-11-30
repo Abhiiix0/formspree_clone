@@ -1,4 +1,4 @@
-const baseUrl = process.env.REACT_APP_BACKEND_URL;
+const baseUrl = "https://fast-formsapi.vercel.app/api";
 
 export const getUserData = () => {
   return fetch(baseUrl + "/getuserdetails", {

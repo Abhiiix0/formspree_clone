@@ -29,13 +29,16 @@ const Register = () => {
     const { name, email, password } = data;
 
     try {
-      const response = await fetch("http://localhost:8080/api/registration", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ name, email, password }),
-      });
+      const response = await fetch(
+        `${process.env.REACT_APP_BACKEND_URL}/registration`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ name, email, password }),
+        }
+      );
 
       const result = await response.json();
       if (response.ok) {

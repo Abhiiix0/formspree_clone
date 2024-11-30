@@ -32,14 +32,17 @@ const Login = () => {
     // Dummy API call simulation
     try {
       // Replace with your API call
-      const response = await fetch("http://localhost:8080/api/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(encPayload),
-        credentials: "include",
-      });
+      const response = await fetch(
+        `${process.env.REACT_APP_BACKEND_URL}/login`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(encPayload),
+          credentials: "include",
+        }
+      );
       const result = await response.json();
       // console.log(result);
       if (response.ok) {
