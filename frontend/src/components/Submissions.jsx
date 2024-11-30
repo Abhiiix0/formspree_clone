@@ -107,7 +107,7 @@ const Submissions = () => {
       const payload = { formId: selectedForm?.formId };
       const res = await getFormSUbmissions(payload);
       const result = await res.json();
-      console.log([...result?.data]);
+
       setFormSubmissions([...result?.data]);
     } catch (error) {
       toast.error(error?.message || error);
