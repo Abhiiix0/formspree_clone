@@ -13,6 +13,8 @@ import FromNotSelect from "./components/FromNotSelect";
 import PageNotFound from "./pages/PageNotFound";
 import Account from "./pages/Account";
 import { AppProvider } from "./context/AppContext";
+import ThankYouPage from "./pages/ThankYouPage";
+import SubmissionLimitReached from "./pages/SubmissionLimitReached";
 // Lazy load the components
 const Home = lazy(() => import("./pages/Home"));
 
@@ -34,13 +36,25 @@ const App = () => {
               <Route path="/dashboard/form/:id" element={<Intigration />} />
               <Route path="/dashboard" element={<FromNotSelect />} />
             </Route>
-            <Route path="/account" element={<Account />} />
+            <Route
+              path="/account"
+              element={
+                <PrivateRoute>
+                  <Account />
+                </PrivateRoute>
+              }
+            />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Register />} />
 
             <Route
               path="/signup/OtpVerification"
               element={<OtpVerification />}
+            />
+            <Route path="/thankyousubmiting" element={<ThankYouPage />} />
+            <Route
+              path="/submission-limit-Reached"
+              element={<SubmissionLimitReached />}
             />
             <Route path="/*" element={<PageNotFound />} />
           </Routes>

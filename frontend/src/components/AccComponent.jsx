@@ -116,6 +116,7 @@ const AccComponent = () => {
       const res = await DeleteAccount(data);
       const result = await res.json();
       if (result.success) {
+        localStorage.removeItem("token");
         navigate("/login");
         // toast.success(result.message);
       }

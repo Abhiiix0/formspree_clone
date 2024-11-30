@@ -1,6 +1,7 @@
 import { Checkbox, Modal, Table, Button } from "antd";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import * as XLSX from "xlsx";
 import { getFormSUbmissions } from "../Service/Api";
 import { useAppContext } from "../context/AppContext";
 
@@ -12,7 +13,19 @@ const Submissions = () => {
   const { selectedForm } = useAppContext();
   const [formSubmissions, setFormSubmissions] = useState([]);
   const [visibleColumns, setVisibleColumns] = useState([]);
+  const exportToExcel = (jsonData) => {
+    // Create a new workbook
+    const workbook = XLSX.utils.book_new();
 
+    // Convert JSON data to worksheet
+    const worksheet = XLSX.utils.json_to_sheet(jsonData);
+
+    // Append worksheet to workbook
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Data");
+
+    // Export workbook to Excel file
+    XLSX.writeFile(workbook, "exported_data.xlsx");
+  };
   const availableFields = formSubmissions.length
     ? Array.from(
         new Set(
@@ -48,17 +61,17 @@ const Submissions = () => {
         key: field,
         ellipsis: true,
       })),
-    {
-      render: (text, record) => (
-        <Checkbox
-          checked={selectedRowKeys.includes(record.key)}
-          onChange={() => handleSelectChange(record.key)}
-        />
-      ),
-      width: 50,
-      key: "select",
-      fixed: true,
-    },
+    // {
+    //   render: (text, record) => (
+    //     <Checkbox
+    //       checked={selectedRowKeys.includes(record.key)}
+    //       onChange={() => handleSelectChange(record.key)}
+    //     />
+    //   ),
+    //   width: 50,
+    //   key: "select",
+    //   fixed: true,
+    // },
   ];
 
   const handleSelectChange = (key) => {
@@ -115,12 +128,18 @@ const Submissions = () => {
         />
       </div>
 
-      <div className="mb-3 flex justify-end">
+      <div className="mb-3 flex gap-2 justify-end">
         <button
           className="border py-2 px-3 rounded-md bg-blue-500 hover:bg-blue-600 text-white font-medium"
           onClick={() => setColumnModalVisible(true)}
         >
           Columns Settings
+        </button>
+        <button
+          className="border py-2 px-3 rounded-md bg-blue-500 hover:bg-blue-600 text-white font-medium"
+          onClick={() => exportToExcel(formSubmissions)}
+        >
+          Export Data
         </button>
       </div>
 

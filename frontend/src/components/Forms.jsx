@@ -157,7 +157,7 @@ const Forms = () => {
         </button>
         <div className=" mt-4">
           <h2 className="text-lg font-bold my-1 ">Forms</h2>
-          <div className=" flex flex-col gap-2">
+          <div className=" flex flex-col min-h-[300px] max-h-[400px] overflow-y-auto pr-1 mb-4 scroll-smooth gap-2">
             {forms.map((form) => (
               <p
                 key={form.formId}

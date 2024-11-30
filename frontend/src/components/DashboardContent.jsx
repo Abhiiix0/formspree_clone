@@ -1,6 +1,6 @@
-import { LeftOutlined, PlusOutlined } from "@ant-design/icons";
+import { LeftOutlined } from "@ant-design/icons";
 import React, { useState } from "react";
-import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Forms from "./Forms";
 import FromNotSelect from "./FromNotSelect.jsx";
 import { useAppContext } from "../context/AppContext.js";
@@ -9,30 +9,16 @@ import Intigration from "./Intigration.jsx";
 import Settings from "./Settings.jsx";
 import Submissions from "./Submissions.jsx";
 import { useParams } from "react-router-dom";
-import { getSingleForm } from "../Service/Api.js";
 const DashboardContent = () => {
   const location = useLocation();
   const navigate = useNavigate();
-
+  const { id } = useParams(); // Get the id from the URL
   const { selectedForm, setSelectedForm } = useAppContext();
-
   const [selectedOption, setselectedOption] = useState(
     location.pathname.split("/")[location.pathname.split("/").length - 1]
   );
 
-  // useEffect(() => {
-  //   const fetchForm = async () => {
-  //     const formid = id;
-  //     const res = await getSingleForm(formid);
-  //     const result = await res.json();
-  //     console.log(result);
-  //   };
-  //   fetchForm();
-  // }, []);
-  const { id } = useParams(); // Get the id from the URL
   useEffect(() => {
-    // if (location?.pathname !== "/dashboard") {
-    // }
     setselectedOption("intigration");
   }, [id]);
 
@@ -83,8 +69,10 @@ const DashboardContent = () => {
                     setselectedOption("intigration");
                   }}
                   className={`${
-                    selectedOption === "intigration" && "border-b-2 text-black"
-                  } hover:border-b-2 pb-2 text-gray-500 cursor-pointer border-red-500 px-1`}
+                    selectedOption === "intigration"
+                      ? " text-black border-b-2"
+                      : "text-gray-500"
+                  } hover:border-b-2 pb-2 cursor-pointer border-red-500 px-1`}
                 >
                   Intigration
                 </p>
@@ -93,8 +81,10 @@ const DashboardContent = () => {
                     setselectedOption("submissions");
                   }}
                   className={`${
-                    selectedOption === "submissions" && "border-b-2 text-black"
-                  } hover:border-b-2  pb-2 text-gray-500 cursor-pointer border-red-500 px-1`}
+                    selectedOption === "submissions"
+                      ? " text-black border-b-2"
+                      : "text-gray-500"
+                  } hover:border-b-2  pb-2  cursor-pointer border-red-500 px-1`}
                 >
                   Submissions
                 </p>
@@ -103,8 +93,10 @@ const DashboardContent = () => {
                     setselectedOption("setting");
                   }}
                   className={`${
-                    selectedOption === "setting" && "border-b-2 text-black"
-                  } hover:border-b-2 pb-2 text-gray-500 cursor-pointer border-red-500 px-1 `}
+                    selectedOption === "setting"
+                      ? " text-black border-b-2"
+                      : "text-gray-500"
+                  } hover:border-b-2 pb-2  cursor-pointer border-red-500 px-1 `}
                 >
                   Settings
                 </p>

@@ -19,7 +19,7 @@ const Integration = () => {
     fetchSIngleForm(id);
   }, [id]);
 
-  const endpointUrl = `${process.env.REACT_APP_BACKEND_URL}/api/${selectedForm?.formId}`;
+  const endpointUrl = `${process.env.REACT_APP_BACKEND_URL}/${selectedForm?.formId}`;
 
   const htmlCode = `
 <!-- Place this form HTML wherever you want your form -->
@@ -27,20 +27,29 @@ const Integration = () => {
   action="${endpointUrl}"
   method="POST"
 >
-  <label>
-    Your email:
-    <input type="email" name="email">
-  </label>
-  <label>
-    Your message:
-    <textarea name="message"></textarea>
-  </label>
-  <button type="submit">Send</button>
+  <div>
+    <label for="name">Your Name:</label>
+    <input type="text" id="name" name="name" required placeholder="Enter your name" />
+  </div>
+
+  <div>
+    <label for="email">Your Email:</label>
+    <input type="email" id="email" name="email" required placeholder="Enter your email" />
+  </div>
+
+  <div>
+    <label for="message">Your Message:</label>
+    <textarea id="message" name="message" required placeholder="Type your message here"></textarea>
+  </div>
+
+  <div>
+    <button type="submit">Send</button>
+  </div>
 </form>
   `;
 
   const reactCode = `
-import React, { useState } from "react";
+  import React, { useState } from "react";
 
 const MyForm = () => {
   const [formData, setFormData] = useState({ email: "", message: "" });
@@ -64,20 +73,38 @@ const MyForm = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <label>
-        Your email:
-        <input type="email" name="email" value={formData.email} onChange={handleChange} />
-      </label>
-      <label>
-        Your message:
-        <textarea name="message" value={formData.message} onChange={handleChange}></textarea>
-      </label>
-      <button type="submit">Send</button>
+      <div>
+        <label htmlFor="email">Your Email:</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          value={formData.email}
+          onChange={handleChange}
+          required
+        />
+      </div>
+
+      <div>
+        <label htmlFor="message">Your Message:</label>
+        <textarea
+          id="message"
+          name="message"
+          value={formData.message}
+          onChange={handleChange}
+          required
+        ></textarea>
+      </div>
+
+      <div>
+        <button type="submit">Send</button>
+      </div>
     </form>
   );
 };
 
 export default MyForm;
+
   `;
 
   const getCodeBlock = () => {
@@ -97,7 +124,7 @@ export default MyForm;
                 {endpointUrl}
               </p>
               <button
-                className="h-11 border rounded-md px-3"
+                className="h-11 border bg-blue-500 hover:bg-blue-600 text-white rounded-md px-3"
                 onClick={handleCopy}
               >
                 Copy

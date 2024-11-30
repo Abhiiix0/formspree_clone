@@ -1,23 +1,23 @@
 import { LogoutOutlined, MenuOutlined } from "@ant-design/icons";
 import React, { useEffect, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import { getAllForm, getUserData } from "../Service/Api";
+import { Link, useNavigate } from "react-router-dom";
+import { getUserData } from "../Service/Api";
 import { useAppContext } from "../context/AppContext";
-import toast from "react-hot-toast";
 import { Drawer } from "antd";
 
 const DashbaordHeader = () => {
   const navigate = useNavigate();
+  const { setSelectedForm, setUser } = useAppContext();
   const logout = () => {
     localStorage.removeItem("token");
     navigate("/login");
   };
-  const { selectedForm, setSelectedForm, setUser } = useAppContext();
+
   const [menu, setmenu] = useState(false);
   const onClose = () => {
     setmenu(false);
   };
-  console.log("header");
+
   useEffect(() => {
     const fetchUserData = async () => {
       const res = await getUserData();
@@ -26,6 +26,7 @@ const DashbaordHeader = () => {
       setUser(result.data);
     };
     fetchUserData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -38,15 +39,18 @@ const DashbaordHeader = () => {
               setSelectedForm("");
             }}
             to="/dashboard"
-            className="cursor-pointer text-lg"
+            className={`cursor-pointer font-medium text-lg`}
           >
             Dashboard
           </Link>
-          <p className="text-lg cursor-pointer">Forms</p>
-          <Link to="/account" className="text-lg cursor-pointer">
+          {/* <p className="text-lg cursor-pointer font-medium">Forms</p> */}
+          <Link to="/account" className={`cursor-pointer font-medium text-lg `}>
             Account
           </Link>
-          <p onClick={() => logout()} className=" text-xl cursor-pointer">
+          <p
+            onClick={() => logout()}
+            className=" text-xl font-medium cursor-pointer"
+          >
             <LogoutOutlined className=" text-red-500 " />
           </p>
         </div>
