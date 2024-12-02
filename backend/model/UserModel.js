@@ -28,7 +28,7 @@ const UserSchema = new mongoose.Schema(
     },
     submissionlimit: {
       type: Number,
-      default: 5,
+      default: 50,
     },
   },
   {

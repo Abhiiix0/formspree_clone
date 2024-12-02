@@ -41,7 +41,6 @@ const Settings = () => {
         toast.error(res?.message || "Failed to save form name.");
       }
     } catch (error) {
-      console.error("Error saving form name:", error);
       toast.error(error?.message || "Internal Server Error");
     }
   };
@@ -60,7 +59,6 @@ const Settings = () => {
         toast.error(res?.message || "Failed to save email.");
       }
     } catch (error) {
-      console.error("Error saving target email:", error);
       toast.error(error?.message || "Internal Server Error");
     }
   };
@@ -78,7 +76,6 @@ const Settings = () => {
         toast.error(res?.message || "Failed to update form enable status.");
       }
     } catch (error) {
-      console.error("Error updating form enable status:", error);
       toast.error(error?.message || "Internal Server Error");
     }
   };
@@ -100,7 +97,6 @@ const Settings = () => {
         );
       }
     } catch (error) {
-      console.error("Error updating email notifications:", error);
       toast.error(error?.message || "Internal Server Error");
     }
   };
@@ -109,7 +105,7 @@ const Settings = () => {
   const DeleteFormFunction = async () => {
     try {
       const res = await DeleteForm({ formId: selectedForm?.formId });
-      console.log(res);
+
       const result = await res.json();
       if (result?.success) {
         navigate("/dashboard");
@@ -119,7 +115,6 @@ const Settings = () => {
         toast.error(result?.message || "Failed to delete form.");
       }
     } catch (error) {
-      console.error("Error deleting form:", error);
       toast.error(error?.message || "Internal Server Error");
     }
   };
@@ -127,6 +122,7 @@ const Settings = () => {
   const [DeleteConfim, setDeleteConfim] = useState(false);
   useEffect(() => {
     fetchSIngleForm(id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
   return (
     <>

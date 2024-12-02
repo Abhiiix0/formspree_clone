@@ -71,7 +71,7 @@ const OtpVerification = () => {
       const result = await response.json();
       if (response.ok) {
         toast.success("OTP verified successfully");
-        // console.log(result);
+
         // Redirect to dashboard
         navigate("/login");
       } else {
@@ -80,8 +80,6 @@ const OtpVerification = () => {
         );
       }
     } catch (error) {
-      console.error("Error:", error);
-      //   alert("An error occurred. Please try again.");
       toast.error(error?.message || "An error occurred. Please try again.");
     }
   };

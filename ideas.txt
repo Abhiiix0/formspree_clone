@@ -1,0 +1,25 @@
+PAID FEATURES
+1) submissions
+2) Custom Redirect Url
+3) Submisson Export
+4) Target mail
+5) Form limit
+
+********** P L A N S **********
+
+
+1) Basic : Rs 299
+-200 Submission
+-Submisson Export
+
+2) Standard : Rs 499
+-400 Submission
+-Submisson Export
+-up to 5 Form limit
+
+
+3) Premium : Rs 799
+-1000 Submission
+-Submisson Export
+-up to
+-Target mail

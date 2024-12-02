@@ -30,7 +30,7 @@ export async function Registration(req, res) {
       secure: false, // true for port 465, false for other ports
       auth: {
         user: "goodtimes4info@gmail.com",
-        pass: "klbuckvuuqdobprx",
+        pass: process.env.EMAIL_PASSWORD,
       },
     });
 

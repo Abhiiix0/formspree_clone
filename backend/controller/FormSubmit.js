@@ -8,14 +8,16 @@ export async function FormSubmit(req, res) {
   const submissionData = req.body;
   // const { id } = req.user;
   try {
-    const forms = await FormModel.findOne({ formId });
-    const user = await UserModel.findByIdAndUpdate(forms.userId);
+    const formm = await FormModel.findOne({ formId });
+    const user = await UserModel.findByIdAndUpdate(formm?.userId);
     if (user?.submissionsuse >= user.submissionlimit) {
       // return res.status(400).json({
       //   message: "You have reached your submission limit",
       //   error: true,
       // });
-      res.redirect("https://fast-forms.vercel.app/submission-limit-Reached");
+      return res
+        .status(400)
+        .redirect("http://localhost:3000/submission-limit-Reached");
     }
     // Find the form by formId
     const form = await FormModel.findOne({ formId });
@@ -45,7 +47,7 @@ export async function FormSubmit(req, res) {
         secure: false, // true for port 465, false for other ports
         auth: {
           user: "goodtimes4info@gmail.com",
-          pass: "klbuckvuuqdobprx",
+          pass: process.env.EMAIL_PASSWORD,
         },
       });
 
@@ -80,7 +82,8 @@ Your Team`,
       });
     }
 
-    res.redirect("https://fast-forms.vercel.app/thankyousubmiting");
+    // res.status(201).json({ message: "Form submitted successfully"});
+    res.status(200).redirect("http://localhost:3000/thankyousubmiting");
   } catch (error) {
     console.error(error);
     res

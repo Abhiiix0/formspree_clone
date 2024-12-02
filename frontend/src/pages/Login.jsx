@@ -46,9 +46,8 @@ const Login = () => {
       const result = await response.json();
       // console.log(result);
       if (response.ok) {
-        // login(result.user); // Update context with user data
         toast.success("Login successful!");
-        console.log(result);
+
         localStorage.setItem("token", result.token);
         navigate("/dashboard");
       } else {
@@ -58,7 +57,6 @@ const Login = () => {
         // alert("Invalid credentials. Please try again.");
       }
     } catch (error) {
-      console.error("Error:", error);
       alert("An error occurred. Please try again.");
     }
   };
