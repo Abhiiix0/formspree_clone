@@ -25,7 +25,7 @@ const Integration = () => {
 <!-- Place this form HTML wherever you want your form -->
 <form
   action="${endpointUrl}"
-  method="POST"
+  method="post"
 >
   <div>
     <label for="name">Your Name:</label>
