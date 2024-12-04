@@ -12,8 +12,8 @@ const HomeHeader = () => {
     }
   };
   return (
-    <div className=" py-4 sm:p-6">
-      <div className=" isolate aspect-video  border border-blue-300  bg-blue-100 bg-white/25  rounded-full ring-1 ring-black/5  backdrop-blur-4xl h-[60px] md:h-20 w-full flex justify-between items-center px-6 md:px-10">
+    <div className=" py-4">
+      <div className=" isolate aspect-video border-blue-300  bg-blue-100  border  rounded-full ring-1 ring-black/5  backdrop-blur-2xl h-[50px] md:h-[70px] w-full flex justify-between items-center px-6 md:px-10">
         <p className=" cursor-pointer font-bold text-lg md:text-2xl">LOGO</p>
         <div className=" flex items-center justify-center gap-4">
           <button

@@ -47,7 +47,7 @@ const DashboardContent = () => {
           </div>
         ) : (
           <>
-            <div className=" px-3 bg-white">
+            <div className=" px-3 w-full bg-white">
               <div className=" flex gap-2 items-center">
                 <button
                   onClick={() => {
