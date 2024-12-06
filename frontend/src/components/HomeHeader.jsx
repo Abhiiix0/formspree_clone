@@ -13,18 +13,20 @@ const HomeHeader = () => {
   };
   return (
     <div className=" py-4">
-      <div className=" isolate aspect-video border-blue-300  bg-blue-100  border  rounded-full ring-1 ring-black/5  backdrop-blur-2xl h-[50px] md:h-[70px] w-full flex justify-between items-center px-6 md:px-10">
-        <p className=" cursor-pointer font-bold text-lg md:text-2xl">LOGO</p>
-        <div className=" flex items-center justify-center gap-4">
+      <div className=" h-[50px] md:h-[70px] w-full flex justify-between items-center px-0 md:px-10">
+        <p className=" cursor-pointer font-bold text-lg md:text-2xl text-white">
+          LOGO
+        </p>
+        <div className=" flex items-center justify-center gap-2 sm:gap-4">
           <button
             onClick={() => navigate("/signup")}
-            className="  btn-grad tracking-wide text-[12px] md:text-lg bg-blue-500 rounded-md text-white font-medium px-2 py-2"
+            className="  btn-grad tracking-wide text-[12px] md:text-lg bg-blue-500 rounded-md text-white font-medium px-2 sm:px-3 py-[5px] sm:py-2"
           >
             Get started
           </button>
           <button
             onClick={() => goToLogin()}
-            className="  tracking-wide bg-blue-100 text-[12px] hover:opacity-80 rounded-md md:text-lg text-blue-500 font-medium px-2 py-2"
+            className="  tracking-wide bg-blue-100 text-[12px] hover:opacity-80 rounded-md md:text-lg text-blue-500 font-medium px-2 sm:px-3 py-[5px] sm:py-2"
           >
             Login
           </button>

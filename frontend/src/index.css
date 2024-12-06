@@ -49,3 +49,17 @@
     hsl(0deg 3% 6%) 100%
   );
 }
+.code-container {
+  background-color: #1e1e1e;
+  color: #d4d4d4;
+  padding: 16px;
+  border-radius: 8px;
+  font-family: "Fira Code", monospace;
+  overflow-x: auto;
+}
+
+.code-container code {
+  font-size: 0.9rem;
+  display: block;
+  white-space: pre;
+}

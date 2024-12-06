@@ -8,7 +8,7 @@ import {
 import { useAppContext } from "../context/AppContext";
 import { useParams } from "react-router-dom";
 
-const Footer = () => {
+const Footer = ({ dark }) => {
   const { id } = useParams(); // Get the id from the URL
   const { fetchSIngleForm } = useAppContext();
   useEffect(() => {
@@ -19,30 +19,58 @@ const Footer = () => {
   }, [id]);
 
   return (
-    <footer className="h-fit py-4 sm:py-6 border-t bg-white flex flex-col md:flex-row items-center justify-between px-4 md:px-12">
+    <footer
+      className={`h-fit py-4 sm:py-6 border-t ${
+        dark ? "bg-transparent" : " bg-white"
+      } flex flex-col md:flex-row items-center justify-between px-4 md:px-0`}
+    >
       {/* Top Section - Mobile Only */}
-      <div className="text-gray-600 text-sm mb-3 md:mb-0">
+      <div
+        className={` text-sm mb-3  w-full md:mb-0 ${
+          dark ? " text-white" : "text-gray-600"
+        }`}
+      >
         &copy; {new Date().getFullYear()} Your Company. All rights reserved.
       </div>
 
       {/* Middle Section - Links */}
-      <div className="flex flex-wrap gap-4 text-gray-500 mb-3 md:mb-0">
-        <a href="/about" className="hover:text-blue-600">
+      <div className="flex flex-wrap  w-full justify-center gap-4 text-gray-500 mb-3 md:mb-0">
+        <a
+          href="/about"
+          className={`hover:text-blue-600 text-sm sm:text-base ${
+            dark && "text-white"
+          }`}
+        >
           About Us
         </a>
-        <a href="/services" className="hover:text-blue-600">
+        <a
+          href="/services"
+          className={`hover:text-blue-600 text-sm sm:text-base ${
+            dark && "text-white"
+          }`}
+        >
           Services
         </a>
-        <a href="/contact" className="hover:text-blue-600">
+        <a
+          href="/contact"
+          className={`hover:text-blue-600 text-sm sm:text-base ${
+            dark && "text-white"
+          }`}
+        >
           Contact
         </a>
-        <a href="/privacy" className="hover:text-blue-600">
+        <a
+          href="/privacy"
+          className={`hover:text-blue-600 text-sm sm:text-base ${
+            dark && "text-white"
+          }`}
+        >
           Privacy Policy
         </a>
       </div>
 
       {/* Bottom Section - Social Icons */}
-      <div className="flex gap-3 text-gray-500">
+      <div className="flex gap-3 w-full  justify-end text-gray-500">
         <a
           href="https://facebook.com"
           target="_blank"
