@@ -67,11 +67,11 @@ const Login = () => {
     <div className="flex relative justify-center items-center min-h-screen gradient  bg-gray-100 p-4">
       <Link
         to="/"
-        className=" w-full  absolute top-3 cursor-pointer font-bold text-lg md:text-2xl text-white"
+        className=" w-full  absolute top-3 sm:top-4 cursor-pointer font-bold text-lg md:text-2xl text-white"
       >
         <img
           src={eazyformlogo}
-          className=" h-7 md:h-10 px-3 bg-transparent rounded-sm object-contain"
+          className=" h-7 md:h-10 px-4 sm:px-12 bg-transparent rounded-sm object-contain"
           alt="EazyForm Logo"
         />
       </Link>

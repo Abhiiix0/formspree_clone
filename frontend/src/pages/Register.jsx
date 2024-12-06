@@ -65,32 +65,34 @@ const Register = () => {
     setShowConfirmPassword((prev) => !prev);
 
   return (
-    <div className="flex justify-center relative items-center min-h-screen bg-gray-100 p-4">
+    <div className="flex justify-center relative items-center min-h-screen gradient bg-gray-100 p-4">
       <Link
         to="/"
-        className=" w-full  absolute top-3 cursor-pointer font-bold text-lg md:text-2xl text-white"
+        className=" w-full  absolute top-3 sm:top-4 cursor-pointer font-bold text-lg md:text-2xl text-white"
       >
         <img
           src={eazyformlogo}
-          className=" h-7 md:h-10 px-3 bg-transparent rounded-sm object-contain"
+          className=" h-7 md:h-10 px-4 sm:px-12 bg-transparent rounded-sm object-contain"
           alt="EazyForm Logo"
         />
       </Link>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="w-full max-w-sm bg-white p-6 rounded-lg shadow-lg"
+        className="w-full max-w-sm bg-white/10 backdrop-blur-md p-6 rounded-lg shadow-lg"
       >
-        <h2 className="text-2xl font-bold mb-6 text-center">Register</h2>
+        <h2 className="text-2xl font-bold mb-6 text-center uppercase tracking-wider  text-white">
+          Register
+        </h2>
 
         {/* Name Field */}
         <div className="mb-2">
-          <label className="block mb-1 font-semibold">Name</label>
+          <label className="block  font-semibold text-white">Name</label>
           <div className="relative">
             <UserOutlined className="absolute top-3 left-3 text-gray-500" />
             <input
               type="text"
               placeholder="Enter your name"
-              className={`w-full pl-10 p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+              className={`w-full pl-10 p-2 border-2 rounded-md outline-none  ${
                 errors.name ? "border-red-500" : ""
               }`}
               {...register("name", { required: "Name is required" })}
@@ -103,13 +105,13 @@ const Register = () => {
 
         {/* Email Field */}
         <div className="mb-2">
-          <label className="block mb-1 font-semibold">Email</label>
+          <label className="block text-white font-semibold">Email</label>
           <div className="relative">
             <MailOutlined className="absolute top-3 left-3 text-gray-500" />
             <input
               type="email"
               placeholder="Enter your email"
-              className={`w-full pl-10 p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+              className={`w-full pl-10 p-2 border-2 rounded-md outline-none  ${
                 errors.email ? "border-red-500" : ""
               }`}
               {...register("email", {
@@ -128,13 +130,13 @@ const Register = () => {
 
         {/* Password Field */}
         <div className="mb-2">
-          <label className="block mb-1 font-semibold">Password</label>
+          <label className="block text-white font-semibold">Password</label>
           <div className="relative">
             <LockOutlined className="absolute top-3 left-3 text-gray-500" />
             <input
               type={showPassword ? "text" : "password"}
               placeholder="Enter your password"
-              className={`w-full pl-10 p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+              className={`w-full pl-9 py-2 pr-9 border-2 rounded-md outline-none ${
                 errors.password ? "border-red-500" : ""
               }`}
               {...register("password", {
@@ -147,7 +149,7 @@ const Register = () => {
             />
             <button
               type="button"
-              className="absolute top-3 right-3 text-gray-500"
+              className="absolute top-2 right-3 text-gray-500"
               onClick={togglePasswordVisibility}
             >
               {showPassword ? <EyeTwoTone /> : <EyeInvisibleOutlined />}
@@ -162,13 +164,15 @@ const Register = () => {
 
         {/* Confirm Password Field */}
         <div className="mb-4">
-          <label className="block mb-1 font-semibold">Confirm Password</label>
+          <label className="block text-white font-semibold">
+            Confirm Password
+          </label>
           <div className="relative">
             <LockOutlined className="absolute top-3 left-3 text-gray-500" />
             <input
               type={showConfirmPassword ? "text" : "password"}
               placeholder="Confirm your password"
-              className={`w-full pl-10 p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+              className={`w-full pl-9 py-2 pr-9 border-2 rounded-md outline-none ${
                 errors.confirmPassword ? "border-red-500" : ""
               }`}
               {...register("confirmPassword", {
@@ -179,7 +183,7 @@ const Register = () => {
             />
             <button
               type="button"
-              className="absolute top-3 right-3 text-gray-500"
+              className="absolute top-2 right-3 text-gray-500"
               onClick={toggleConfirmPasswordVisibility}
             >
               {showConfirmPassword ? <EyeTwoTone /> : <EyeInvisibleOutlined />}
@@ -201,8 +205,8 @@ const Register = () => {
         </button>
 
         {/* Login Link */}
-        <p className="mt-4 text-center text-sm">
-          Already have an account?{" "}
+        <p className="mt-4 text-white text-center text-sm">
+          Already have an account ?{" "}
           <Link to="/login" className="text-blue-500 hover:underline">
             Login
           </Link>
