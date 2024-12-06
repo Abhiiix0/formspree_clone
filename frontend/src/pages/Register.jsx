@@ -8,6 +8,7 @@ import {
   LockOutlined,
 } from "@ant-design/icons";
 import { Link, useNavigate } from "react-router-dom";
+import eazyformlogo from "../assets/eazyform.png";
 import toast from "react-hot-toast";
 import { useAppContext } from "../context/AppContext";
 
@@ -64,7 +65,17 @@ const Register = () => {
     setShowConfirmPassword((prev) => !prev);
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100 p-4">
+    <div className="flex justify-center relative items-center min-h-screen bg-gray-100 p-4">
+      <Link
+        to="/"
+        className=" w-full  absolute top-3 cursor-pointer font-bold text-lg md:text-2xl text-white"
+      >
+        <img
+          src={eazyformlogo}
+          className=" h-7 md:h-10 px-3 bg-transparent rounded-sm object-contain"
+          alt="EazyForm Logo"
+        />
+      </Link>
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="w-full max-w-sm bg-white p-6 rounded-lg shadow-lg"

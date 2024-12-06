@@ -1,7 +1,7 @@
 // src/components/Login.js
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useAppContext } from "../context/AppContext";
+import eazyformlogo from "../assets/eazyform.png";
 import {
   MailOutlined,
   LockOutlined,
@@ -64,22 +64,34 @@ const Login = () => {
   const togglePasswordVisibility = () => setShowPassword((prev) => !prev);
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100 p-4">
+    <div className="flex relative justify-center items-center min-h-screen gradient  bg-gray-100 p-4">
+      <Link
+        to="/"
+        className=" w-full  absolute top-3 cursor-pointer font-bold text-lg md:text-2xl text-white"
+      >
+        <img
+          src={eazyformlogo}
+          className=" h-7 md:h-10 px-3 bg-transparent rounded-sm object-contain"
+          alt="EazyForm Logo"
+        />
+      </Link>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="w-full max-w-sm bg-white p-6 rounded-lg shadow-lg"
+        className="w-full max-w-sm bg-white/10 backdrop-blur-md p-6 rounded-lg shadow-lg"
       >
-        <h2 className="text-2xl font-bold mb-6 text-center">Login</h2>
+        <h2 className="text-2xl font-bold mb-6 text-center tracking-wider uppercase text-white">
+          Login
+        </h2>
 
         {/* Email Field */}
         <div className="mb-2">
-          <label className="block mb-1 font-semibold">Email</label>
+          <label className="block mb-0 font-semibold text-white">Email</label>
           <div className="relative">
             <MailOutlined className="absolute top-3 left-3 text-gray-500" />
             <input
               type="email"
               placeholder="Enter your email"
-              className={`w-full pl-10 p-2 border rounded-md focus:outline-none focus:ring-2 ${
+              className={`w-full pl-10 p-2 border-2 rounded-md outline-none  ${
                 errors.email ? "border-red-500" : "focus:ring-blue-500"
               }`}
               {...register("email", {
@@ -98,13 +110,15 @@ const Login = () => {
 
         {/* Password Field */}
         <div className="mb-4">
-          <label className="block mb-1 font-semibold">Password</label>
+          <label className="block mb-0 font-semibold text-white">
+            Password
+          </label>
           <div className="relative">
             <LockOutlined className="absolute top-3 left-3 text-gray-500" />
             <input
               type={showPassword ? "text" : "password"}
               placeholder="Enter your password"
-              className={`w-full pl-10 p-2 border rounded-md focus:outline-none focus:ring-2 ${
+              className={`w-full pl-10 p-2 border-2 outline-none rounded-md ${
                 errors.password ? "border-red-500" : "focus:ring-blue-500"
               }`}
               {...register("password", {
@@ -117,7 +131,7 @@ const Login = () => {
             />
             <button
               type="button"
-              className="absolute top-3 right-3 text-gray-500"
+              className="absolute top-2 right-3 text-gray-500"
               onClick={togglePasswordVisibility}
             >
               {showPassword ? <EyeTwoTone /> : <EyeInvisibleOutlined />}
@@ -138,10 +152,10 @@ const Login = () => {
 
         {/* Registration Link */}
         <div className="text-center mt-4">
-          <p className="text-sm">
-            Don't have an account?{" "}
+          <p className="text-sm text-white">
+            Don't have an account ?{" "}
             <Link to="/signup" className="text-blue-500 hover:underline">
-              Register here
+              Register
             </Link>
           </p>
         </div>
