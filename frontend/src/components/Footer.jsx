@@ -26,7 +26,7 @@ const Footer = ({ dark }) => {
     >
       {/* Top Section - Mobile Only */}
       <div
-        className={` text-sm mb-3  w-full md:mb-0 ${
+        className={` text-sm mb-3  w-full text-center md:text-start md:mb-0 ${
           dark ? " text-white" : "text-gray-600"
         }`}
       >
@@ -70,7 +70,7 @@ const Footer = ({ dark }) => {
       </div>
 
       {/* Bottom Section - Social Icons */}
-      <div className="flex gap-3 w-full  justify-end text-gray-500">
+      <div className="flex gap-3 w-full justify-center  md:justify-end text-gray-500">
         <a
           href="https://facebook.com"
           target="_blank"

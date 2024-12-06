@@ -12,7 +12,7 @@ const HomeBanner = () => {
   </form>
       `;
   return (
-    <div className="  h-[70vh] sm:h-[87vh] grid place-content-center">
+    <div className="  h-[70vh] md:mt-2  sm:h-[87vh] grid place-content-center">
       <div className="  flex flex-col items-center justify-center gap-4 md:gap-6">
         <div className=" grid place-content-center h-full gap-4 md:gap-6">
           <h1 className=" text-center text-white uppercase text-2xl md:text-6xl font-bold">

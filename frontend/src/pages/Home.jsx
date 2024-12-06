@@ -16,7 +16,7 @@ const Home = () => {
 </form>
     `;
   return (
-    <div className="gradient flex px-4 sm:px-12  flex-col justify-between h-full">
+    <div className="gradient  flex px-4 sm:px-12  flex-col justify-between h-full">
       <HomeHeader />
       <HomeBanner />
       <HowItWork />
