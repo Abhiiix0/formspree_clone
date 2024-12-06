@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { getUserData } from "../Service/Api";
 import { useAppContext } from "../context/AppContext";
 import { Drawer } from "antd";
-
+import eazyformlogo from "../assets/eazyform.png";
 const DashbaordHeader = () => {
   const navigate = useNavigate();
   const { setSelectedForm, setUser } = useAppContext();
@@ -32,7 +32,18 @@ const DashbaordHeader = () => {
   return (
     <div className=" h-[70px] sm:h-20 bg-white w-full">
       <div className=" flex justify-between border-b h-full items-center px-4">
-        <p className=" cursor-pointer font-bold text-2xl">LOGO</p>
+        <p className=" cursor-pointer font-bold text-2xl">
+          <Link
+            to="/"
+            className=" w-full cursor-pointer font-bold text-lg md:text-2xl text-white"
+          >
+            <img
+              src={eazyformlogo}
+              className=" h-7 md:h-10 bg-transparent rounded-sm object-contain"
+              alt="EazyForm Logo"
+            />
+          </Link>
+        </p>
         <div className="hidden sm:flex gap-6 items-center  justify-center">
           <Link
             onClick={() => {
@@ -59,7 +70,24 @@ const DashbaordHeader = () => {
           className=" cursor-pointer text-2xl sm:hidden"
         />
       </div>
-      <Drawer title="Logo" onClose={onClose} open={menu}>
+      <Drawer
+        title={
+          <div className=" flex w-full  justify-end">
+            <Link
+              to="/"
+              className=" cursor-pointer font-bold text-lg md:text-2xl text-white"
+            >
+              <img
+                src={eazyformlogo}
+                className=" h-7 md:h-10 bg-transparent rounded-sm object-contain"
+                alt="EazyForm Logo"
+              />
+            </Link>
+          </div>
+        }
+        onClose={onClose}
+        open={menu}
+      >
         <div className=" flex flex-col gap-3 justify-between h-full ">
           <div className=" flex flex-col gap-3">
             <Link
