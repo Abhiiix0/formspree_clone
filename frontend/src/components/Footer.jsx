@@ -6,7 +6,7 @@ import {
   LinkedinOutlined,
 } from "@ant-design/icons";
 import { useAppContext } from "../context/AppContext";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 const Footer = ({ dark }) => {
   const { id } = useParams(); // Get the id from the URL
@@ -51,14 +51,14 @@ const Footer = ({ dark }) => {
         >
           Services
         </a>
-        <a
-          href="/contact"
+        <Link
+          to="/contact"
           className={`hover:text-blue-600 text-sm sm:text-base ${
             dark && "text-white"
           }`}
         >
           Contact
-        </a>
+        </Link>
         <a
           href="/privacy"
           className={`hover:text-blue-600 text-sm sm:text-base ${

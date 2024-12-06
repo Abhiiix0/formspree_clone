@@ -15,6 +15,7 @@ import Account from "./pages/Account";
 import { AppProvider } from "./context/AppContext";
 import ThankYouPage from "./pages/ThankYouPage";
 import SubmissionLimitReached from "./pages/SubmissionLimitReached";
+import Contact from "./pages/Contact";
 // Lazy load the components
 const Home = lazy(() => import("./pages/Home"));
 
@@ -52,6 +53,7 @@ const App = () => {
               element={<OtpVerification />}
             />
             <Route path="/thankyousubmiting" element={<ThankYouPage />} />
+            <Route path="/contact" element={<Contact />} />
             <Route
               path="/submission-limit-Reached"
               element={<SubmissionLimitReached />}
