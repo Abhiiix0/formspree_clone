@@ -56,7 +56,7 @@ const Register = () => {
         toast.error(result?.message || "Something went wrong");
       }
     } catch (error) {
-      alert("An error occurred. Please try again.");
+      toast.error("An error occurred. Please try again.");
     }
   };
 

@@ -3,7 +3,7 @@ import eazyformlogo from "../assets/eazyform.png";
 import { Link, useNavigate } from "react-router-dom";
 import { MenuUnfoldOutlined, CloseOutlined } from "@ant-design/icons";
 
-const HomeHeader = () => {
+const HomeHeader = ({ scrollToFAQ }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false); // State for slider visibility
   const navigate = useNavigate();
 
@@ -30,12 +30,18 @@ const HomeHeader = () => {
           />
         </Link>
         <div className=" hidden lg:flex  w-full gap-6 justify-center items-center">
-          <p className=" text-white hover:text-blue-500 font-medium tracking-wider">
-            About us
-          </p>
-          <p className=" text-white hover:text-blue-500 font-medium tracking-wider">
+          <Link
+            to="/#faq"
+            className="  text-white hover:text-blue-500 font-medium tracking-wider"
+          >
+            FAQ
+          </Link>
+          <Link
+            to="/#tutorial"
+            className=" text-white hover:text-blue-500 font-medium tracking-wider"
+          >
             Tutorial
-          </p>
+          </Link>
           <Link
             to="/contact"
             className=" text-white hover:text-blue-500 font-medium tracking-wider"
@@ -74,18 +80,20 @@ const HomeHeader = () => {
       {/* Glass blur slider */}
       {isMenuOpen && (
         <div className="absolute top-[50px] rounded-md p-4 right-0 h-[350px] w-full bg-white/10 backdrop-blur-md shadow-md flex flex-col items-center justify-center gap-4 z-50 transition-transform duration-300">
-          <p
-            className="text-white hover:text-blue-500 font-medium tracking-wider cursor-pointer"
-            onClick={() => navigate("/about")}
+          <Link
+            onClick={() => setIsMenuOpen(false)}
+            className="text-white  hover:text-blue-500 font-medium tracking-wider cursor-pointer"
+            to="/#faq"
           >
-            About us
-          </p>
-          <p
+            FAQ
+          </Link>
+          <Link
+            onClick={() => setIsMenuOpen(false)}
             className="text-white hover:text-blue-500 font-medium tracking-wider cursor-pointer"
-            onClick={() => navigate("/tutorial")}
+            to="/#tutorial"
           >
             Tutorial
-          </p>
+          </Link>
           <p
             className="text-white hover:text-blue-500 font-medium tracking-wider cursor-pointer"
             onClick={() => navigate("/contact")}

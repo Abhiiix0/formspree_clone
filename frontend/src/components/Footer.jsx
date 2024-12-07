@@ -35,22 +35,22 @@ const Footer = ({ dark }) => {
 
       {/* Middle Section - Links */}
       <div className="flex flex-wrap  w-full justify-center gap-4 text-gray-500 mb-3 md:mb-0">
-        <a
-          href="/about"
+        <Link
+          to="/#faq"
           className={`hover:text-blue-600 text-sm sm:text-base ${
             dark && "text-white"
           }`}
         >
-          About Us
-        </a>
-        <a
-          href="/services"
+          FAQ
+        </Link>
+        <Link
+          to="/#tutorial"
           className={`hover:text-blue-600 text-sm sm:text-base ${
             dark && "text-white"
           }`}
         >
-          Services
-        </a>
+          Tutorial
+        </Link>
         <Link
           to="/contact"
           className={`hover:text-blue-600 text-sm sm:text-base ${
@@ -61,7 +61,7 @@ const Footer = ({ dark }) => {
         </Link>
         <a
           href="/privacy"
-          className={`hover:text-blue-600 text-sm sm:text-base ${
+          className={`hover:text-blue-600 hidden text-sm sm:text-base ${
             dark && "text-white"
           }`}
         >

@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useAppContext } from "../context/AppContext";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
-
+import { Link, useNavigate } from "react-router-dom";
+import eazyformlogo from "../assets/eazyform.png";
 const OtpVerification = () => {
   const navigate = useNavigate();
   const {
@@ -85,7 +85,17 @@ const OtpVerification = () => {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center min-h-screen bg-gray-100 p-4">
+    <div className="flex relative flex-col justify-center items-center min-h-screen bg-gray-100 p-4">
+      <Link
+        to="/"
+        className=" w-full  absolute top-3 sm:top-4 cursor-pointer font-bold text-lg md:text-2xl text-white"
+      >
+        <img
+          src={eazyformlogo}
+          className=" h-7 md:h-10 px-4 sm:px-12 bg-transparent rounded-sm object-contain"
+          alt="EazyForm Logo"
+        />
+      </Link>
       <div className="w-full max-w-sm bg-white p-6 rounded-lg shadow-lg">
         <h2 className="text-2xl font-bold mb-4 text-center">Verify OTP</h2>
 

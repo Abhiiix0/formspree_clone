@@ -57,7 +57,7 @@ const Login = () => {
         // alert("Invalid credentials. Please try again.");
       }
     } catch (error) {
-      alert("An error occurred. Please try again.");
+      toast.error("An error occurred. Please try again.");
     }
   };
 

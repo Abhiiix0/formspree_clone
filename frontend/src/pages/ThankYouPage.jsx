@@ -1,5 +1,6 @@
 import React from "react";
-
+import { Link } from "react-router-dom";
+import eazyformlogo from "../assets/eazyform.png";
 const ThankYouPage = () => {
   return (
     <div className="min-h-screen  px-4 bg-gray-50 flex items-center justify-center">
@@ -15,8 +16,18 @@ const ThankYouPage = () => {
         </p>
 
         <div>
-          <p className=" text-center text-[12px]  text-gray-600 font-medium">
-            Powered by myCompanyName.com
+          <p className=" text-center text-[12px] flex items-center justify-center text-gray-600 font-medium">
+            Powered by{" "}
+            <Link
+              to="/"
+              className=" w-fit cursor-pointer font-bold text-lg md:text-2xl text-white"
+            >
+              <img
+                src={eazyformlogo}
+                className=" h-4 ml-2 md:h-5 bg-transparent rounded-sm object-contain"
+                alt="EazyForm Logo"
+              />
+            </Link>
           </p>
         </div>
       </div>

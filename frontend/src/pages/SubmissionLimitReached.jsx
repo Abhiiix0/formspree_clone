@@ -1,5 +1,6 @@
 import React from "react";
-
+import { Link } from "react-router-dom";
+import eazyformlogo from "../assets/eazyform.png";
 const SubmissionLimitReached = () => {
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center">
@@ -12,31 +13,18 @@ const SubmissionLimitReached = () => {
           can no longer submit at this time.
         </p>
 
-        <p className="text-center text-gray-600 mb-6">
-          If you need further assistance or have questions, feel free to contact
-          us.
-        </p>
-
-        <div className="border-t-2 border-gray-200 my-6"></div>
-
-        <h2 className="text-lg font-medium text-gray-700 mb-3">Need Help?</h2>
-        <p className="text-gray-600">
-          <strong>Email Support:</strong>{" "}
-          <a
-            href="mailto:support@xyzservice.com"
-            className="text-teal-500 hover:underline"
+        <p className=" text-center text-[12px] flex items-center justify-center text-gray-600 font-medium">
+          Powered by{" "}
+          <Link
+            to="/"
+            className=" w-fit cursor-pointer font-bold text-lg md:text-2xl text-white"
           >
-            support@xyzservice.com
-          </a>
-        </p>
-        <p className="text-gray-600">
-          <strong>Visit our website:</strong>{" "}
-          <a
-            href="https://www.xyzservice.com"
-            className="text-teal-500 hover:underline"
-          >
-            www.xyzservice.com
-          </a>
+            <img
+              src={eazyformlogo}
+              className=" h-4 ml-2 md:h-5 bg-transparent rounded-sm object-contain"
+              alt="EazyForm Logo"
+            />
+          </Link>
         </p>
       </div>
     </div>
