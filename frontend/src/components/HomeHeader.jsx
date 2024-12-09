@@ -79,7 +79,7 @@ const HomeHeader = ({ scrollToFAQ }) => {
       </div>
       {/* Glass blur slider */}
       {isMenuOpen && (
-        <div className="absolute top-[50px] rounded-md p-4 right-0 h-[350px] w-full bg-white/10 backdrop-blur-md shadow-md flex flex-col items-center justify-center gap-4 z-50 transition-transform duration-300">
+        <div className="absolute top-[50px] md:top-[70px] rounded-md p-4 right-0 h-[350px] w-full bg-white/10 backdrop-blur-md shadow-md flex flex-col items-center justify-center gap-4 z-50 transition-transform duration-300">
           <Link
             onClick={() => setIsMenuOpen(false)}
             className="text-white  hover:text-blue-500 font-medium tracking-wider cursor-pointer"
