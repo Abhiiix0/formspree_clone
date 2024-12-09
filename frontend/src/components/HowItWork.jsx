@@ -1,7 +1,7 @@
 import React from "react";
 
 const HowItWork = () => {
-  const htmlCode = `<form action="https://formspree.io/f/{form_id}" method="post">
+  const htmlCode = `<form action="https://eazyform-api.onrender.com/api/{form_id}" method="post">
 `;
 
   const htmlCode2 = `<input name="email" id="email" type="email" />`;

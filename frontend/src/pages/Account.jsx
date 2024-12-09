@@ -12,7 +12,6 @@ const Account = () => {
     <div className=" bg-gray-100">
       <DashbaordHeader />
       <div className=" h-screen  flex md:flex-row flex-col w-full">
-        {/* Left Sidebar */}
         <div className=" w-full md:w-[17%] bg-white p-4 border-r">
           <h2 className="text-xl hidden md:block font-semibold mb-6">
             Settings
@@ -41,7 +40,6 @@ const Account = () => {
           </div>
         </div>
 
-        {/* Right Content Area */}
         <div className=" md:w-[83%] p-3">
           {activeTab === "account" ? <AccComponent /> : <BillingComp />}
         </div>

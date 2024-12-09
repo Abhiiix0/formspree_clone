@@ -72,12 +72,6 @@ const AccComponent = () => {
   };
 
   const cancelForm = () => {
-    // reset({
-    //   name: "",
-    //   email: "",
-    //   oldPassword: "",
-    //   newPassword: "",
-    // });
     setEditMode(null);
     setEditModal(false);
     reset();

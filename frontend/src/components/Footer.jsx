@@ -21,8 +21,8 @@ const Footer = ({ dark }) => {
   return (
     <footer
       className={`h-fit py-4 sm:py-6 border-t ${
-        dark ? "bg-transparent" : " bg-white"
-      } flex flex-col md:flex-row items-center justify-between px-4 md:px-0`}
+        dark ? "bg-transparent " : " bg-white md:px-6"
+      } flex flex-col md:flex-row items-center justify-between px-4 `}
     >
       {/* Top Section - Mobile Only */}
       <div

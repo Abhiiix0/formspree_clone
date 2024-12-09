@@ -11,10 +11,11 @@ import { Link, useNavigate } from "react-router-dom";
 import eazyformlogo from "../assets/eazyform.png";
 import toast from "react-hot-toast";
 import { useAppContext } from "../context/AppContext";
+import { Helmet } from "react-helmet";
 
 const Register = () => {
   const navigate = useNavigate();
-  const { user, setUser } = useAppContext();
+  const { setUser } = useAppContext();
   const {
     register,
     handleSubmit,
@@ -66,6 +67,26 @@ const Register = () => {
 
   return (
     <div className="flex justify-center relative items-center min-h-screen gradient bg-gray-100 p-4">
+      <Helmet>
+        <title>Register - EazyForm</title>
+        <meta
+          name="description"
+          content="Create an EazyForm account to start managing your forms and submissions efficiently."
+        />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <meta
+          name="keywords"
+          content="EazyForm, Register, Create Account, Form Management"
+        />
+
+        <meta property="og:title" content="Register - EazyForm" />
+        <meta
+          property="og:description"
+          content="Create an EazyForm account to start managing your forms and submissions efficiently."
+        />
+      </Helmet>
       <Link
         to="/"
         className=" w-full  absolute top-3 sm:top-4 cursor-pointer font-bold text-lg md:text-2xl text-white"

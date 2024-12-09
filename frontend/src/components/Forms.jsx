@@ -1,5 +1,5 @@
 import { PlusOutlined } from "@ant-design/icons";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { CreateForm, getAllForm } from "../Service/Api";
 import { Modal } from "antd";
@@ -8,11 +8,10 @@ import { useAppContext } from "../context/AppContext";
 import encryptMessage from "../Helper/Encryption";
 import { useLocation, useNavigate } from "react-router-dom";
 import SubmissionUsage from "./SubmissionUsage";
-// import AppContext from "antd/es/app/context";
 
 const Forms = () => {
   const navigate = useNavigate();
-  const { selectedForm, setSelectedForm, user, setUser } = useAppContext();
+  const { selectedForm, user } = useAppContext();
   const {
     register,
     handleSubmit,
@@ -59,7 +58,6 @@ const Forms = () => {
     fetchForms();
   }, [selectedForm]);
   const [addNewModal, setaddNewModal] = useState(false);
-  const location = useLocation();
 
   return (
     <div className=" h-[100%] min-h-[80vh]">
@@ -70,7 +68,6 @@ const Forms = () => {
           reset();
         }}
         footer={false}
-        // closeIcon={false}
         title={<p className=" text-lg">Create Form</p>}
       >
         <form onSubmit={handleSubmit(submitData)}>
@@ -81,7 +78,6 @@ const Forms = () => {
             <input
               className=" outline-none py-1 px-3 rounded-md border bg-slate-100"
               type="text"
-              //   placeholder="Enter form name"
               id="formName"
               {...register("formName", {
                 required: "Form name is required",
@@ -123,13 +119,13 @@ const Forms = () => {
           </div>
         </form>
       </Modal>
-      <div className="md:hidden bg-slate-100 p-4  md:p-0">
+      <div className="lg:hidden bg-slate-100 p-4  lg:p-0">
         <SubmissionUsage
           submissionlimit={user?.submissionlimit}
           submissionsuse={user?.submissionsuse}
         />
       </div>
-      <div className=" p-4 md:p-0">
+      <div className=" p-4 lg:p-0">
         <button
           onClick={() => setaddNewModal(true)}
           className=" h-12 hover:bg-slate-100 px-1 w-full rounded-md border"

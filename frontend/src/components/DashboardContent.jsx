@@ -26,23 +26,20 @@ const DashboardContent = () => {
     <div className=" w-full  h-full flex">
       <div
         className={`  ${
-          location.pathname === "/dashboard" ? "w-[100%]" : " hidden md:block"
-        } border-r md:w-[20%] bg-white md:p-4`}
+          location.pathname === "/dashboard" ? "w-[100%]" : " hidden lg:block"
+        } border-r lg:w-[20%] bg-white lg:p-4`}
       >
         <Forms />
       </div>
 
       <div
-        className={`  ${
-          selectedOption === "intigration" ||
-          selectedOption === "submissions" ||
-          selectedOption === "setting"
-            ? `${selectedForm && `w-[100%] `}`
-            : "hidden md:block md:w-[80%]"
+        className={`${
+          selectedOption &&
+          (selectedForm ? "w-full" : "hidden md:block md:w-[100%]")
         } h-full bg-slate-100`}
       >
         {location.pathname === "/dashboard" ? (
-          <div className=" hidden md:block">
+          <div className=" hidden lg:block">
             <FromNotSelect></FromNotSelect>
           </div>
         ) : (
@@ -55,7 +52,7 @@ const DashboardContent = () => {
                     setselectedOption("dashboard");
                     setSelectedForm("");
                   }}
-                  className=" rounded-md md:hidden border h-8 px-2"
+                  className=" rounded-md lg:hidden border h-8 px-2"
                 >
                   <LeftOutlined />
                 </button>

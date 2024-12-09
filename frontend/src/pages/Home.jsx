@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import HomeHeader from "../components/HomeHeader";
 import Footer from "../components/Footer";
-
+import { Helmet } from "react-helmet";
 import { Link, useLocation } from "react-router-dom";
 import HowItWork from "../components/HowItWork";
 import HomeBanner from "../components/HomeBanner";
+import dashboard from "../assets/dashboard.png";
 const Home = () => {
   const [activeIndex, setActiveIndex] = useState(null);
   const faqs = [
@@ -56,6 +57,50 @@ const Home = () => {
   }, [location]);
   return (
     <div className="gradient  flex px-4 sm:px-12  flex-col justify-between h-full">
+      <Helmet>
+        {/* Basic SEO */}
+        <title>EazyForm | Simplify Form Handling Without Backend Hassles</title>
+        <meta
+          name="description"
+          content="EazyForm simplifies form handling and submissions. Build professional forms, receive responses securely, and manage data—all without worrying about backend setup."
+        />
+        <meta
+          name="keywords"
+          content="form submissions, no backend forms, EazyForm, Formspree alternative, online forms"
+        />
+        <link rel="canonical" href="https://eazyform.com" />
+
+        {/* Open Graph (OG) Tags for Social Sharing */}
+        <meta
+          property="og:title"
+          content="EazyForm | Simplify Form Handling Without Backend Hassles"
+        />
+        <meta
+          property="og:description"
+          content="EazyForm simplifies form handling and submissions. Build professional forms, receive responses securely, and manage data—all without worrying about backend setup."
+        />
+        {/* <meta property="og:image" content="https://eazyform.com/assets/og-image.png" /> */}
+        <meta property="og:url" content="https://eazyform.com" />
+        <meta property="og:type" content="website" />
+
+        {/* Structured Data (JSON-LD) */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            name: "EazyForm",
+            url: "https://eazyform.com",
+            description:
+              "EazyForm is a powerful tool for managing online form submissions, offering an alternative to Formspree with advanced features and simplicity—all without backend worries.",
+
+            potentialAction: {
+              "@type": "SearchAction",
+              target: "https://eazyform.com/search?q={search_term}",
+              "query-input": "required name=search_term",
+            },
+          })}
+        </script>
+      </Helmet>
       <HomeHeader />
       <HomeBanner />
       <span id="tutorial" className=" mb-8"></span>
@@ -95,7 +140,7 @@ const Home = () => {
           ))}
         </div>
       </div>
-      <div className=" rounded-md bg-gray-800 h-[300px] sm:h-[400px] mb-12 mt-9 sm:mb-20 sm:mt-[70px] p-4 sm:p-8 w-full">
+      {/* <div className=" rounded-md bg-gray-800 h-[300px] sm:h-[400px] mb-12 mt-9 sm:mb-20 sm:mt-[70px] p-4 sm:p-8 w-full">
         <div className=" h-[300px] sm:h-[400px] grid place-content-center">
           <h2 className=" text-white text-center text-2xl sm:text-5xl font-bold tracking-wider">
             Create a working form in seconds.
@@ -109,7 +154,34 @@ const Home = () => {
             </Link>
           </div>
         </div>
+      </div> */}
+
+      <div className="relative rounded-md bg-gray-800 h-[300px] sm:h-[400px] mb-12 mt-9 sm:mb-20 sm:mt-[70px] p-4 sm:p-8 w-full">
+        {/* Background Image */}
+        <div
+          className="absolute bg-no-repeat  inset-0 bg-cover rounded-md bg-center"
+          style={{ backgroundImage: `url(${dashboard})` }}
+        ></div>
+
+        {/* Black Opacity Layer */}
+        <div className="absolute inset-0 bg-black opacity-70"></div>
+
+        {/* Content */}
+        <div className="relative h-[300px] sm:h-[400px] grid place-content-center">
+          <h2 className="text-white text-center text-2xl lg:text-5xl font-bold tracking-wider">
+            Create a working form in seconds.
+          </h2>
+          <p className="text-gray-300 my-4 text-center text-base md:text-2xl font-medium tracking-wider">
+            Grab your form code and see form submissions in under a minute.
+          </p>
+          <div className="grid place-content-center">
+            <Link className="borders w-fit self-center text-center btn-grad tracking-wide md:text-2xl bg-blue-500 rounded-md text-white font-medium px-5 py-2 sm:px-8 sm:py-3">
+              Get Started
+            </Link>
+          </div>
+        </div>
       </div>
+
       <Footer dark={true}></Footer>
     </div>
   );

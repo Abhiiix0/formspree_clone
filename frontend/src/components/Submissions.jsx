@@ -52,6 +52,14 @@ const Submissions = () => {
       key: "submittedAt",
       ellipsis: true,
       width: 150,
+      render: (date) => {
+        const formattedDate = new Intl.DateTimeFormat("en-GB", {
+          day: "2-digit",
+          month: "short",
+          year: "numeric",
+        }).format(new Date(date));
+        return formattedDate; // e.g., "12 Nov 2024"
+      },
     },
     ...availableFields
       .filter((field) => field !== "Date" && visibleColumns.includes(field))
@@ -120,14 +128,6 @@ const Submissions = () => {
 
   return (
     <div>
-      {/* <div className="mb-3">
-        <input
-          type="text"
-          className="py-2 w-full rounded-md border outline-none px-3"
-          placeholder="Search Submissions..."
-        />
-      </div> */}
-
       <div className="mb-3 flex gap-2 justify-end">
         <button
           className="border py-2 px-3 rounded-md bg-blue-500 hover:bg-blue-600 text-white font-medium"

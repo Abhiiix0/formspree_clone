@@ -2,6 +2,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import Footer from "../components/Footer";
 import HomeHeader from "../components/HomeHeader";
+import { Helmet } from "react-helmet";
 
 const Contact = () => {
   const {
@@ -17,6 +18,32 @@ const Contact = () => {
 
   return (
     <div>
+      <Helmet>
+        {/* Page Title */}
+        <title>Contact Us - EazyForm</title>
+
+        {/* Meta Description */}
+        <meta
+          name="description"
+          content="Get in touch with the EazyForm team for inquiries, support, or feedback. We're here to assist you!"
+        />
+
+        {/* Viewport for Responsive Design */}
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        {/* Keywords */}
+        <meta
+          name="keywords"
+          content="EazyForm, Contact Us, Support, Customer Service, Feedback"
+        />
+
+        {/* Open Graph Tags for Social Sharing */}
+        <meta property="og:title" content="Contact Us - EazyForm" />
+        <meta
+          property="og:description"
+          content="Have questions or need help? Contact the EazyForm team for prompt assistance."
+        />
+      </Helmet>
       <div className="gradient flex px-4 sm:px-12 flex-col justify-between min-h-screen">
         <HomeHeader />
         <form

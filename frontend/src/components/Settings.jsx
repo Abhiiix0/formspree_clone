@@ -13,7 +13,6 @@ const Settings = () => {
   const { id } = useParams(); // Get the id from the URL
   const {
     register,
-    handleSubmit,
     setValue,
     getValues,
     formState: { errors },

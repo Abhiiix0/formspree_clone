@@ -11,6 +11,7 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import encryptMessage from "../Helper/Encryption";
+import { Helmet } from "react-helmet";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -29,9 +30,8 @@ const Login = () => {
       password,
     };
     const encPayload = { encData: encryptMessage(payload) };
-    // Dummy API call simulation
+
     try {
-      // Replace with your API call
       const response = await fetch(
         `${process.env.REACT_APP_BACKEND_URL}/login`,
         {
@@ -44,7 +44,6 @@ const Login = () => {
         }
       );
       const result = await response.json();
-      // console.log(result);
       if (response.ok) {
         toast.success("Login successful!");
 
@@ -54,7 +53,6 @@ const Login = () => {
         toast.error(
           result?.message || "Invalid credentials. Please try again."
         );
-        // alert("Invalid credentials. Please try again.");
       }
     } catch (error) {
       toast.error("An error occurred. Please try again.");
@@ -65,6 +63,26 @@ const Login = () => {
 
   return (
     <div className="flex relative justify-center items-center min-h-screen gradient  bg-gray-100 p-4">
+      <Helmet>
+        <title>Login - EazyForm</title>
+
+        <meta
+          name="description"
+          content="Login to your EazyForm account to manage forms and submissions effortlessly."
+        />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <meta
+          name="keywords"
+          content="EazyForm, Login, Form Management, User Authentication"
+        />
+        <meta property="og:title" content="Login - EazyForm" />
+        <meta
+          property="og:description"
+          content="Login to your EazyForm account to manage forms and submissions effortlessly."
+        />
+      </Helmet>
       <Link
         to="/"
         className=" w-full  absolute top-3 sm:top-4 cursor-pointer font-bold text-lg md:text-2xl text-white"

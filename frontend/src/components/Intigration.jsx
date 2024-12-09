@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
-import { getSingleForm } from "../Service/Api";
 import { useParams } from "react-router-dom";
 import { useAppContext } from "../context/AppContext";
 const Integration = () => {
@@ -13,7 +12,7 @@ const Integration = () => {
       toast.success("Copied to clipboard!");
     });
   };
-  const { selectedForm, setSelectedForm, fetchSIngleForm } = useAppContext();
+  const { selectedForm, fetchSIngleForm } = useAppContext();
   useEffect(() => {
     fetchSIngleForm(id);
   }, [id]);

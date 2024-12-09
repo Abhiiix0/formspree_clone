@@ -5,7 +5,7 @@ import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
 const HomeBanner = () => {
   const navigate = useNavigate();
   const htmlCode = `
-  <form action="https://formspree.io/f/{form_id}" method="post">
+  <form action="https://eazyform-api.onrender.com/api/{form_id}" method="post">
     <label for="email">Your Email</label>
     <input name="Email" id="email" type="email">
     <button type="submit">Submit</button>

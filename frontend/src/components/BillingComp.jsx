@@ -3,7 +3,7 @@ import SubmissionUsage from "./SubmissionUsage";
 import { useAppContext } from "../context/AppContext";
 
 const BillingComp = () => {
-  const { user, fetchUserData } = useAppContext();
+  const { user } = useAppContext();
   return (
     <div>
       <SubmissionUsage
