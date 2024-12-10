@@ -45,7 +45,7 @@ const DashboardContent = () => {
         ) : (
           <>
             <div className=" px-3 w-full bg-white">
-              <div className=" flex gap-2 items-center">
+              <div className=" flex gap-2 py-2 items-start ">
                 <button
                   onClick={() => {
                     navigate("/dashboard");
@@ -56,7 +56,7 @@ const DashboardContent = () => {
                 >
                   <LeftOutlined />
                 </button>
-                <h2 className="text-lg font-bold py-3  ">
+                <h2 className="text-lg tracking-wider font-bold   ">
                   {selectedForm?.formName}
                 </h2>
               </div>
@@ -69,7 +69,7 @@ const DashboardContent = () => {
                     selectedOption === "intigration"
                       ? " text-black border-b-2"
                       : "text-gray-500"
-                  } hover:border-b-2 pb-2 cursor-pointer border-red-500 px-1`}
+                  } hover:border-b-2 pb-2 cursor-pointer text-sm sm:text-base border-red-500 px-1`}
                 >
                   Intigration
                 </p>
@@ -81,7 +81,7 @@ const DashboardContent = () => {
                     selectedOption === "submissions"
                       ? " text-black border-b-2"
                       : "text-gray-500"
-                  } hover:border-b-2  pb-2  cursor-pointer border-red-500 px-1`}
+                  } hover:border-b-2  pb-2  text-sm sm:text-base cursor-pointer border-red-500 px-1`}
                 >
                   Submissions
                 </p>
@@ -93,7 +93,7 @@ const DashboardContent = () => {
                     selectedOption === "setting"
                       ? " text-black border-b-2"
                       : "text-gray-500"
-                  } hover:border-b-2 pb-2  cursor-pointer border-red-500 px-1 `}
+                  } hover:border-b-2 pb-2 text-sm sm:text-base  cursor-pointer border-red-500 px-1 `}
                 >
                   Settings
                 </p>

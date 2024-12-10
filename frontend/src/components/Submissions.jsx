@@ -128,19 +128,25 @@ const Submissions = () => {
 
   return (
     <div>
-      <div className="mb-3 flex gap-2 justify-end">
-        <button
-          className="border py-2 px-3 rounded-md bg-blue-500 hover:bg-blue-600 text-white font-medium"
-          onClick={() => setColumnModalVisible(true)}
-        >
-          Columns Settings
-        </button>
-        <button
-          className="border py-2 px-3 rounded-md bg-blue-500 hover:bg-blue-600 text-white font-medium"
-          onClick={() => exportToExcel(formSubmissions)}
-        >
-          Export Data
-        </button>
+      <div className="mb-3 flex gap-2 justify-between items-center">
+        <p className=" text-[10px] sm:text-base font-medium text-gray-600">
+          Click on a submission to <br className=" sm:hidden" /> view its full
+          details
+        </p>
+        <div className=" w-fit">
+          <button
+            className="border py-1.5 text-[12px] sm:text-base sm:py-2 mr-1.5 sm:mr-2 px-2 sm:px-3 rounded-md bg-blue-500 hover:bg-blue-600 text-white font-medium"
+            onClick={() => setColumnModalVisible(true)}
+          >
+            Columns Settings
+          </button>
+          <button
+            className="border  py-1.5 text-[12px] sm:text-base sm:py-2 px-2 sm:px-3 rounded-md bg-blue-500 hover:bg-blue-600 text-white font-medium"
+            onClick={() => exportToExcel(formSubmissions)}
+          >
+            Export Data
+          </button>
+        </div>
       </div>
 
       <div className="overflow-hidden min-h-[400px] md:h-full">
