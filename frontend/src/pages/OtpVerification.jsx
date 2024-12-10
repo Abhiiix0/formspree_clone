@@ -136,7 +136,7 @@ const OtpVerification = () => {
           Didn't receive an OTP?{" "}
           <button
             onClick={() => alert("Resending OTP...")}
-            className="text-blue-500 hover:underline"
+            className="text-blue-500 hidden hover:underline"
           >
             Resend OTP
           </button>
