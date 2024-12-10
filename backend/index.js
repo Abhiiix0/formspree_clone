@@ -5,6 +5,7 @@ import router from "./routes/index.js";
 import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
 import cors from "cors";
+import resetUserData from "./corn/resetUserData.js";
 dotenv.config();
 
 const app = express();
@@ -27,6 +28,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api", router);
+resetUserData();
 connectDb().then(() => {
   app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
