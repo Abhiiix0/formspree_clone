@@ -30,7 +30,7 @@ const Footer = ({ dark }) => {
           dark ? " text-white" : "text-gray-600"
         }`}
       >
-        &copy; {new Date().getFullYear()} Your Company. All rights reserved.
+        &copy; {new Date().getFullYear()} Eazyform. All rights reserved.
       </div>
 
       {/* Middle Section - Links */}
@@ -71,7 +71,7 @@ const Footer = ({ dark }) => {
 
       {/* Bottom Section - Social Icons */}
       <div className="flex gap-3 w-full justify-center  md:justify-end text-gray-500">
-        <a
+        {/* <a
           href="https://facebook.com"
           target="_blank"
           rel="noopener noreferrer"
@@ -80,16 +80,16 @@ const Footer = ({ dark }) => {
         </a>
         <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
           <TwitterOutlined className="hover:text-blue-400 text-xl" />
-        </a>
+        </a> */}
         <a
-          href="https://instagram.com"
+          href="https://www.instagram.com/abhiiii.x0/?next=%2Femails%2Femails_sent"
           target="_blank"
           rel="noopener noreferrer"
         >
           <InstagramOutlined className="hover:text-pink-600 text-xl" />
         </a>
         <a
-          href="https://linkedin.com"
+          href="https://www.linkedin.com/in/abhishek-nayak-6375ab128/"
           target="_blank"
           rel="noopener noreferrer"
         >

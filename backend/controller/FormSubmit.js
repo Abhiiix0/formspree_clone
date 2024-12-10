@@ -17,7 +17,7 @@ export async function FormSubmit(req, res) {
       // });
       return res
         .status(400)
-        .redirect("http://localhost:3000/submission-limit-Reached");
+        .redirect(`${process.env.FRONTEND_URL}/submission-limit-Reached`);
     }
     // Find the form by formId
     const form = await FormModel.findOne({ formId });
@@ -83,7 +83,7 @@ Your Team`,
     }
 
     // res.status(201).json({ message: "Form submitted successfully"});
-    res.status(200).redirect("http://localhost:3000/thankyousubmiting");
+    res.status(200).redirect(`${process.env.FRONTEND_URL}/thankyousubmiting`);
   } catch (error) {
     console.error(error);
     res
