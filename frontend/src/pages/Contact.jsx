@@ -23,6 +23,7 @@ const Contact = () => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify(data), // Ensure data is sent in the body
+          redirect: "manual", // Disable automatic redirects
         }
       );
       console.log(res);
