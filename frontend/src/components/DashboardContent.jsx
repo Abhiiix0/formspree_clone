@@ -35,7 +35,7 @@ const DashboardContent = () => {
       <div
         className={`${
           selectedOption &&
-          (selectedForm ? "w-full" : "hidden md:block md:w-[100%]")
+          (selectedForm ? "w-full" : "hidden md:block lg:w-[100%]")
         } h-full bg-slate-100`}
       >
         {location.pathname === "/dashboard" ? (

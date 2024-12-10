@@ -145,6 +145,7 @@ const Submissions = () => {
 
       <div className="overflow-hidden min-h-[400px] md:h-full">
         <Table
+          size="small"
           columns={columns}
           dataSource={formSubmissions}
           pagination={{ pageSize: 10 }}

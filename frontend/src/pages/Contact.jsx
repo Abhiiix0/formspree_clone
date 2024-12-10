@@ -3,17 +3,39 @@ import { useForm } from "react-hook-form";
 import Footer from "../components/Footer";
 import HomeHeader from "../components/HomeHeader";
 import { Helmet } from "react-helmet";
+import toast from "react-hot-toast";
 
 const Contact = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
-    console.log("Form Data: ", data);
-    alert("Message sent successfully!");
+  const onSubmit = async (data) => {
+    try {
+      const res = await fetch(
+        `${process.env.REACT_APP_BACKEND_URL}/399afe68-e7ae-4ee5-9510-2ab9c64baee4`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data), // Ensure data is sent in the body
+        }
+      );
+      console.log(res);
+
+      if (res.status === 200) {
+        reset();
+        toast.success("Message sent successfully");
+      } else {
+        toast.error("Internal server error");
+      }
+    } catch (error) {
+      toast.error("An error occurred while sending the message.");
+    }
   };
 
   return (
