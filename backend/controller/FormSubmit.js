@@ -6,7 +6,7 @@ export async function FormSubmit(req, res) {
   console.log(req.body);
   const { formId } = req.params;
   const submissionData = req.body;
-  // const { id } = req.user;
+  const contentType = req.headers["content-type"];
   try {
     const formm = await FormModel.findOne({ formId });
     const user = await UserModel.findByIdAndUpdate(formm?.userId);
@@ -81,7 +81,13 @@ Your Team`,
         console.log("Email sent: " + info.response);
       });
     }
-
+    if (contentType === "application/json") {
+      // Programmatic request (respond with redirect URL)
+      return res.status(200).json({
+        message: "Submission successful",
+        redirectUrl: `${process.env.FRONTEND_URL}/thankyousubmiting`,
+      });
+    }
     // res.status(201).json({ message: "Form submitted successfully"});
     res.status(200).redirect(`${process.env.FRONTEND_URL}/thankyousubmiting`);
   } catch (error) {
