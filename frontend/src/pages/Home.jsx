@@ -32,7 +32,7 @@ const Home = () => {
     {
       question: "Is it free to use?",
       answer:
-        "Yes, you can start using EazyForm for free! We offer 50 free form submissions. After that, you can purchase additional submission credits to keep using the service.",
+        "Yes, you can start using EazyForm for free! We offer 50 free form submissions per month. After that, you can purchase additional submission credits to keep using the service.",
     },
   ];
 
