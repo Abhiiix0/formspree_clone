@@ -6,7 +6,6 @@ import { getFormSUbmissions } from "../Service/Api";
 import { useAppContext } from "../context/AppContext";
 
 const Submissions = () => {
-  const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedData, setSelectedData] = useState(null);
   const [columnModalVisible, setColumnModalVisible] = useState(false);
@@ -42,6 +41,7 @@ const Submissions = () => {
     {
       title: "Index",
       render: (text, record, index) => index + 1,
+
       width: 80,
       key: "index",
       fixed: true,
@@ -69,29 +69,7 @@ const Submissions = () => {
         key: field,
         ellipsis: true,
       })),
-    // {
-    //   render: (text, record) => (
-    //     <Checkbox
-    //       checked={selectedRowKeys.includes(record.key)}
-    //       onChange={() => handleSelectChange(record.key)}
-    //     />
-    //   ),
-    //   width: 50,
-    //   key: "select",
-    //   fixed: true,
-    // },
   ];
-
-  const handleSelectChange = (key) => {
-    const newSelectedRowKeys = [...selectedRowKeys];
-    const index = newSelectedRowKeys.indexOf(key);
-    if (index >= 0) {
-      newSelectedRowKeys.splice(index, 1);
-    } else {
-      newSelectedRowKeys.push(key);
-    }
-    setSelectedRowKeys(newSelectedRowKeys);
-  };
 
   const handleRowClick = (record, e) => {
     if (e.target.type !== "checkbox") {

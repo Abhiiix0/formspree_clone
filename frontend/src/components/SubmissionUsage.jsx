@@ -2,7 +2,6 @@ import { Progress } from "antd";
 import React from "react";
 
 const SubmissionUsage = ({ submissionsuse, submissionlimit }) => {
-  console.log("hi");
   function calculatePercentage(submissionsUse, submissionLimit) {
     if (!submissionLimit || submissionLimit === 0) return 0; // Prevent division by zero
     const percent = (submissionsUse / submissionLimit) * 100;

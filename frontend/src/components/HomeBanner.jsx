@@ -5,12 +5,22 @@ import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
 const HomeBanner = () => {
   const navigate = useNavigate();
   const htmlCode = `
-  <form action="https://eazyform-api.onrender.com/api/{form_id}" method="post">
+  <form 
+  action="https://eazyform-api.onrender.com/api/{form_id}" 
+  method="post"
+  >
     <label for="email">Your Email</label>
     <input name="Email" id="email" type="email">
     <button type="submit">Submit</button>
   </form>
       `;
+  const htmlCode2 = `
+      <form action="https://eazyform-api.onrender.com/api/{form_id}" method="post">
+        <label for="email">Your Email</label>
+        <input name="Email" id="email" type="email">
+        <button type="submit">Submit</button>
+      </form>
+          `;
   return (
     <div className="  h-[70vh] md:mt-5  sm:h-[87vh] grid place-content-center">
       <div className="  flex flex-col items-center justify-center gap-4 md:gap-6">
@@ -48,7 +58,7 @@ const HomeBanner = () => {
               style: { fontSize: "0.95rem" }, // Force font size here
             }}
           >
-            {htmlCode}
+            {htmlCode2}
           </SyntaxHighlighter>
         </div>
         <div className=" w-full hidden sm:block md:hidden h-fit self-center ">
@@ -68,7 +78,7 @@ const HomeBanner = () => {
               style: { fontSize: "0.70rem" }, // Force font size here
             }}
           >
-            {htmlCode}
+            {htmlCode2}
           </SyntaxHighlighter>
         </div>
         <div className=" w-full  sm:hidden  h-fit self-center ">
