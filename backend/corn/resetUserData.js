@@ -1,5 +1,3 @@
-// /cron/resetUserData.js
-
 import cron from "node-cron";
 import UserModel from "../model/UserModel.js";
 
