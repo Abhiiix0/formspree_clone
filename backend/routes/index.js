@@ -15,6 +15,7 @@ import { UpdateForm } from "../controller/UpdateForm.js";
 import { GetSingleForm } from "../controller/GetSingleForm.js";
 import { UserDetailUpdate } from "../controller/UserDetialUpdate.js";
 import { DeleteAccount } from "../controller/DeleteAccount.js";
+import { SendOtp } from "../controller/SendOtp.js";
 
 const router = express.Router();
 router.post("/formdata", verifyToken, GetFormSubmission);
@@ -31,5 +32,6 @@ router.put("/update-userdetails", verifyToken, UserDetailUpdate);
 router.post("/create-form", verifyToken, decryptMiddleware, CreateForm);
 router.post("/:formId", FormSubmit);
 router.get("/forms", verifyToken, GetAllForm);
+router.post("/forgetpassowrd", SendOtp);
 
 export default router;
