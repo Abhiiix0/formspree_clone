@@ -10,7 +10,7 @@ export async function FormSubmit(req, res) {
   try {
     const formm = await FormModel.findOne({ formId });
     const user = await UserModel.findByIdAndUpdate(formm?.userId);
-    if (user?.submissionsuse >= user.submissionlimit) {
+    if (user?.submissionsuse >= user?.submissionlimit) {
       // return res.status(400).json({
       //   message: "You have reached your submission limit",
       //   error: true,

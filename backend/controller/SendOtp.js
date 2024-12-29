@@ -1,3 +1,5 @@
+import nodemailer from "nodemailer";
+import UserModel from "../model/UserModel.js";
 export async function SendOtp(req, res) {
   const { email } = req.body;
 
@@ -6,8 +8,19 @@ export async function SendOtp(req, res) {
   }
 
   try {
+    const user = await UserModel.findOne({ email });
+    if (!user) {
+      return res.status(400).json({
+        message: "User not found",
+        error: true,
+      });
+    }
     // Generate a 6-digit OTP
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
+
+    //set otp in user
+    user.otp = otp;
+    await user.save();
 
     // Set up nodemailer transporter
     const transporter = nodemailer.createTransport({
@@ -32,13 +45,17 @@ export async function SendOtp(req, res) {
     await transporter.sendMail(mailOptions, (error) => {
       if (error) {
         console.log(error);
-        return res.status(500).json({ message: "Failed to send OTP" });
+        return res
+          .status(500)
+          .json({ message: "Failed to send OTP", error: true });
       }
     });
 
     res.status(200).send("OTP sent to your email.");
   } catch (error) {
     console.error(error);
-    res.status(500).send("Failed to send OTP. Please try again.");
+    res
+      .status(500)
+      .json({ message: error?.message || "Internal Server Error" });
   }
 }

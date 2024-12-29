@@ -16,10 +16,13 @@ import { GetSingleForm } from "../controller/GetSingleForm.js";
 import { UserDetailUpdate } from "../controller/UserDetialUpdate.js";
 import { DeleteAccount } from "../controller/DeleteAccount.js";
 import { SendOtp } from "../controller/SendOtp.js";
+import { ResetPassword } from "../controller/ResetPassword.js";
 
 const router = express.Router();
 router.post("/formdata", verifyToken, GetFormSubmission);
+router.post("/forgetpassword", SendOtp);
 router.post("/registration", Registration);
+router.post("/resetPassword", ResetPassword);
 router.post("/otp-verify", OtpVerify);
 router.post("/get-single-form", verifyToken, GetSingleForm);
 router.post("/updateform", verifyToken, UpdateForm);
@@ -32,6 +35,4 @@ router.put("/update-userdetails", verifyToken, UserDetailUpdate);
 router.post("/create-form", verifyToken, decryptMiddleware, CreateForm);
 router.post("/:formId", FormSubmit);
 router.get("/forms", verifyToken, GetAllForm);
-router.post("/forgetpassowrd", SendOtp);
-
 export default router;
