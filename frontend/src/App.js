@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { AppProvider } from "./context/AppContext";
 import { Spin } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
+import ForgetPassword from "./pages/ForgetPassword";
 // import Dashboard from "./pages/Dashboard";
 // import Login from "./pages/Login";
 // import Register from "./pages/Register";
@@ -73,6 +74,7 @@ const App = () => {
               }
             />
             <Route path="/login" element={<Login />} />
+            <Route path="/forget-password" element={<ForgetPassword />} />
             <Route path="/signup" element={<Register />} />
 
             <Route

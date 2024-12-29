@@ -158,7 +158,7 @@ const Login = () => {
           {errors.password && (
             <p className="text-red-500 text-xs">{errors.password.message}</p>
           )}
-          <p>Foget Password ? </p>
+          <Link to="/forgetpassword">Foget Password ?</Link>
         </div>
 
         {/* Submit Button */}

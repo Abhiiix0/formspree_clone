@@ -20,7 +20,7 @@ import { ResetPassword } from "../controller/ResetPassword.js";
 
 const router = express.Router();
 router.post("/formdata", verifyToken, GetFormSubmission);
-router.post("/forgetpassword", SendOtp);
+router.post("/forgetpassword", decryptMiddleware, SendOtp);
 router.post("/registration", Registration);
 router.post("/resetPassword", ResetPassword);
 router.post("/otp-verify", OtpVerify);
